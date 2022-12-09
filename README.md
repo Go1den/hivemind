@@ -1,5 +1,5 @@
 # Hive Mind
-Hive Mind is a free to play word game based on the popular NYT game Spelling Bee
+Hive Mind is a (coming soon) free to play word game based on the popular NYT game Spelling Bee
 
 Rank is based on % of total possible points:
 0% Beginner
