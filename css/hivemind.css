@@ -1,0 +1,88 @@
+body {
+    background-color: #1b1f20;
+    color: white;
+}
+
+caption {
+    background-color: rgb(6, 24, 19);
+}
+
+.scroll {
+    height: 300px;
+    overflow-y: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+div {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.definition {
+    height: 300px;
+    width: 800px;
+}
+
+.text {
+    text-align: center;
+    font-size: 24px;
+}
+
+table tr td {
+    width: 200px;
+    height: 38px;
+}
+
+img {
+    padding: 4px;
+}
+
+.bordered {
+    border: 2px solid black;
+}
+
+.letterRow {
+    /* border: 2px solid black; */
+    width: 110px;
+    height: 110px;
+    text-align: center;
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 180px;
+  }
+
+  .offAtStart {
+    display: none;
+  }
+
+  .round {
+    display: none;
+  }
+
+  .centerButton {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }

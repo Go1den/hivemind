@@ -1,0 +1,194 @@
+<html>
+    <head>
+        <title>Word Whiz by Go1den</title>
+        <link rel="stylesheet" href="css/w3.css">
+        <link rel="stylesheet" href="css/hivemind.css">
+    </head>
+    <body>
+        <br>
+        <br>
+        <div class="w3-container offAtStart">
+            <table>
+                <tr>
+                    <td>
+                        <table class="bordered">
+                            <caption><strong>Round</strong></caption>
+                            <tr>
+                                <td class="text" id="round"><strong>1</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="bordered">
+                            <caption><strong>Score</strong></caption>
+                            <tr>
+                                <td class="text" id="score"><strong>0</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="bordered">
+                            <caption><strong>To Advance</strong></caption>
+                            <tr>
+                                <td class="text" id="threshold"><strong>0</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="bordered">
+                            <caption><strong>Time</strong></caption>
+                        <tr>
+                            <td class="text" id="timer"><strong>2:00</strong></td>
+                        </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container offAtStart">
+            <table class="bordered">
+                <caption><strong>Answer Board</strong></caption>
+                <tr>
+                    <td onclick="onAnswerBoardClick(this, 1)" id="answer1"></td>
+                    <td onclick="onAnswerBoardClick(this, 8)" id="answer8"></td>
+                    <td onclick="onAnswerBoardClick(this, 15)" id="answer15"></td>
+                    <td onclick="onAnswerBoardClick(this, 22)" id="answer22"></td>
+                </tr>
+                <tr>
+                    <td onclick="onAnswerBoardClick(this, 2)" id="answer2"></td>
+                    <td onclick="onAnswerBoardClick(this, 9)" id="answer9"></td>
+                    <td onclick="onAnswerBoardClick(this, 16)" id="answer16"></td>
+                    <td onclick="onAnswerBoardClick(this, 23)" id="answer23"></td>
+                </tr>
+                <tr>
+                    <td onclick="onAnswerBoardClick(this, 3)" id="answer3"></td>
+                    <td onclick="onAnswerBoardClick(this, 10)" id="answer10"></td>
+                    <td onclick="onAnswerBoardClick(this, 17)" id="answer17"></td>
+                    <td onclick="onAnswerBoardClick(this, 24)" id="answer24"></td>
+                </tr>
+                <tr>
+                    <td onclick="onAnswerBoardClick(this, 4)" id="answer4"></td>
+                    <td onclick="onAnswerBoardClick(this, 11)" id="answer11"></td>
+                    <td onclick="onAnswerBoardClick(this, 18)" id="answer18"></td>
+                    <td onclick="onAnswerBoardClick(this, 25)" id="answer25"></td>
+                </tr>
+                <tr>
+                    <td onclick="onAnswerBoardClick(this, 5)" id="answer5"></td>
+                    <td onclick="onAnswerBoardClick(this, 12)" id="answer12"></td>
+                    <td onclick="onAnswerBoardClick(this, 19)" id="answer19"></td>
+                    <td onclick="onAnswerBoardClick(this, 26)" id="answer26"></td>
+                </tr>
+                <tr>
+                    <td onclick="onAnswerBoardClick(this, 6)" id="answer6"></td>
+                    <td onclick="onAnswerBoardClick(this, 13)" id="answer13"></td>
+                    <td onclick="onAnswerBoardClick(this, 20)" id="answer20"></td>
+                    <td onclick="onAnswerBoardClick(this, 27)" id="answer27"></td>
+                </tr>
+                <tr>
+                    <td onclick="onAnswerBoardClick(this, 7)" id="answer7"></td>
+                    <td onclick="onAnswerBoardClick(this, 14)" id="answer14"></td>
+                    <td onclick="onAnswerBoardClick(this, 21)" id="answer21"></td>
+                    <td onclick="onAnswerBoardClick(this, 28)" id="answer28"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container onAtStartOnly" id="wordWhizRow1">
+            <table>
+                <tr>
+                    <td class="letterRow"><image src="images/tiles/H.png"/></td>
+                    <td class="letterRow"><image src="images/tiles/I.png"/></td>
+                    <td class="letterRow"><image src="images/tiles/V.png"/></td>
+                    <td class="letterRow"><image src="images/tiles/E.png"/></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container onAtStartOnly" id="wordWhizRow2">
+            <table>
+                <tr>
+                    <td class="letterRow"><image src="images/tiles/M.png"/></td>
+                    <td class="letterRow"><image src="images/tiles/I.png"/></td>
+                    <td class="letterRow"><image src="images/tiles/N.png"/></td>
+                    <td class="letterRow"><image src="images/tiles/D.png"/></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container offAtStart" id="definition">
+            <table class="bordered definition">
+                <caption><strong>Definition (Click an answer above)</strong></caption>
+                <tr>
+                    <td><div class="scroll" id="definitionText"></div></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container offAtStart" id="usedLetterRow">
+            <table class="bordered">
+                <caption><strong>Current Guess</strong></caption>
+                <tr>
+                    <td id="usedLetterRow1" class="letterRow" onclick="putSelectedLetterBack(this, 1)"></td>
+                    <td id="usedLetterRow2" class="letterRow" onclick="putSelectedLetterBack(this, 2)"></td>
+                    <td id="usedLetterRow3" class="letterRow" onclick="putSelectedLetterBack(this, 3)"></td>
+                    <td id="usedLetterRow4" class="letterRow" onclick="putSelectedLetterBack(this, 4)"></td>
+                    <td id="usedLetterRow5" class="letterRow" onclick="putSelectedLetterBack(this, 5)"></td>
+                    <td id="usedLetterRow6" class="letterRow" onclick="putSelectedLetterBack(this, 6)"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container offAtStart" id="unusedLetterRow">
+            <table class="bordered">
+                <caption><strong>Your Tiles</strong></caption>
+                <tr>
+                    <td id="unusedLetterRow1" class="letterRow" onclick="addLetter('unusedLetterRow1', 1)"></td>
+                    <td id="unusedLetterRow2" class="letterRow" onclick="addLetter('unusedLetterRow2', 2)"></td>
+                    <td id="unusedLetterRow3" class="letterRow" onclick="addLetter('unusedLetterRow3', 3)"></td>
+                    <td id="unusedLetterRow4" class="letterRow" onclick="addLetter('unusedLetterRow4', 4)"></td>
+                    <td id="unusedLetterRow5" class="letterRow" onclick="addLetter('unusedLetterRow5', 5)"></td>
+                    <td id="unusedLetterRow6" class="letterRow" onclick="addLetter('unusedLetterRow6', 6)"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container">
+            <table class="offAtStart gameButtons">
+                <tr>
+                    <td><button onclick="scramble(this)">Scramble</button></td>
+                    <td><button onclick="submit(this)">Enter</button></td>
+                    <td><button onclick="putLetterBack(this)">Backspace</button></td>
+                    <td><button onclick="giveUp(this)">Give Up</button></td>
+                </tr>
+            </table>
+            <table class="onAtStartOnly newGame">
+                <tr>
+                    <td><button onclick="newGame(this)">New Game</button></td>
+                </tr>
+            </table>
+            <table class="round">
+                <tr>
+                    <td><button onclick="nextRound(this)">Next Round</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container onAtStartOnly" id="howToPlay">
+            <h3><strong>How to play:</strong></h3>
+            <p>Score points by making words using the tiles provided to you.<br>
+            You can use the same tile more than once, but you must always use the center tile in every word.<br>
+            Play the daily puzzle to compare scores with your friends, or play a randomly chosen puzzle.</p>
+            <br>
+            <p><strong>Keyboard</strong></p>
+            <p>Type any letter to add it to the word.<br>
+            Space Bar - Shuffles the tiles in your tray.<br>
+            Backspace - Removes the last typed letter.<br>
+            Enter - Submits a guess, or types the last submitted guess automatically.</p>
+            <br>
+            <p><strong>Mouse</strong></p>
+            <p>Click on any letter tile to add it to the word.<br>
+            Click on any letter tile in the guessed word to bring it back to the tray.<br>
+            Click on any previously found word in the Answer Board to automatically type it again.</p>
+        </div>
+    </div>
+    </body>
+    <!-- <script src="js/dictionary.js"></script>
+    <script src="js/whiz.js"></script>
+    <script src="js/soundboard.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/pagemanager.js"></script>
+    <script src="js/main.js"></script> -->
+</html>
