@@ -1,7 +1,13 @@
 let hivemind = new Hivemind();
 
+
+function todaysGame(e) {
+    hivemind.todaysGame();
+    e.blur();
+}
+
 function newGame(e) {
-    hivemind.newGame();
+    hivemind.randomGame();
     e.blur();
 }
 
@@ -64,3 +70,12 @@ document.addEventListener("keydown", function(event) {
         }
     }
 });
+
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+let puzzle = urlParams.get('puzzle');
+let center = urlParams.get('center');
+
+if (puzzle !== undefined && center !== undefined && hivemind.dictionary.isValidPuzzle(puzzle, center)) {
+    hivemind.newGame(puzzle, center);
+}

@@ -18,6 +18,7 @@ class Hivemind {
     lastSubmittedGuess = '';
     clearRate = 0;
     rank;
+    currentRank = 'Beeswax';
 
     constructor() {
         this.dictionary = new Dictionary();
@@ -26,14 +27,45 @@ class Hivemind {
         this.rank = new Rank();
     }
 
-    newGame() {
+    todaysGame() {
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();
+        today = mm + dd + yyyy;
+        Math.seedrandom(today);
+        this.newGame();
+    }
+
+    randomGame() {
+        Math.seedrandom();
+        this.newGame();
+    }
+
+    updateURL() {
+        const currentURL = location.protocol + '//' + location.host + location.pathname;
+        const nextURL = currentURL + '?puzzle=' + this.seedWord + '&center=' + this.seedCenterLetter;
+        const nextTitle = 'Hive Mind by Go1den';
+        const nextState = { additionalInformation: 'New puzzle data' };
+        window.history.pushState(nextState, nextTitle, nextURL);
+    }
+
+    newGame(puzzle, center) {
         this.isGameGoing = true;
         this.usedLetterIndex = 1;
         this.lastSubmittedGuess = '';
         this.score = 0;
+        this.currentRank = 'Beeswax';
         this.setScore();
         this.foundWords = new Array();
-        this.seedPuzzle = this.dictionary.getRandomPuzzle().split(',');
+        console.log(puzzle);
+        console.log(center);
+        if (puzzle !== undefined && center !== undefined) {
+            let thisPuzzle = puzzle + ',' + center;
+            this.seedPuzzle = thisPuzzle.split(',');
+        } else {
+            this.seedPuzzle = this.dictionary.getRandomPuzzle().split(',');
+        }
         this.seedWord = this.seedPuzzle[0];
         this.seedCenterLetter = this.seedPuzzle[1].charAt(Math.floor(Math.random() * this.seedPuzzle[1].length));
         this.upperCaseSeedWord = this.seedWord.toUpperCase();
@@ -45,10 +77,13 @@ class Hivemind {
         this.scramble(false);
         this.setTotalPossibleRoundPoints();
         this.setThreshold();
+        this.setPointThreshold();
+        this.setRankThreshold();
         this.pageManager.turnOffWelcomeScreenElements();
         this.pageManager.addBorderedClass();
         this.pageManager.turnOnGameElements();
         this.pageManager.hideDefinition();
+        this.updateURL();
     }
 
     setTotalPossibleRoundPoints() {
@@ -106,14 +141,30 @@ class Hivemind {
         this.score += this.getWordScore(word);
         this.setScore();
         this.setThreshold();
+        this.setPointThreshold();
+        this.setRankThreshold();
+    }
+
+    setPointThreshold() {
+        if (this.isGameGoing) {
+            let percentage = Math.round(1000 * (this.score / this.totalRoundPoints)) / 10;
+            this.pageManager.setPointThreshold(percentage);
+            this.currentRank = this.rank.getRank(percentage);
+            this.pageManager.setRank(this.currentRank);
+        }
     }
 
     setThreshold() {
         if (this.isGameGoing) {
             let percentage = Math.round(1000 * (this.foundWords.length / this.answerArray.length)) / 10;
-            console.log(percentage);
             this.pageManager.setThreshold(percentage);
-            this.pageManager.setRank(this.rank.getRank(percentage));
+        }
+    }
+
+    setRankThreshold() {
+        if (this.isGameGoing) {
+            let percentage = this.rank.getProgressToNextRank(this.currentRank, this.totalRoundPoints, this.score);
+            this.pageManager.setRankThreshold(percentage); 
         }
     }
 

@@ -112,8 +112,19 @@ class PageManager {
         document.getElementById("unusedLetterRow").style.display = 'none';
     }
 
+    setRankThreshold(percentage) {
+        console.log(percentage);
+        document.getElementById("rank").style.background = 'linear-gradient(to right, rgba(255, 230, 0, 0.8) ' + percentage + '%, #1b1f20 0%)';
+    }
+
     setThreshold(percentage) {
         document.getElementById("threshold").innerHTML = '<strong>' + percentage + '%</strong>';
+        document.getElementById("threshold").style.background = 'linear-gradient(to right, rgba(255, 230, 0, 0.8) ' + percentage + '%, #1b1f20 0%)';
+    }
+
+    setPointThreshold(percentage) {
+        document.getElementById("pointThreshold").innerHTML = '<strong>' + percentage + '%</strong>';
+        document.getElementById("pointThreshold").style.background = 'linear-gradient(to right, rgba(255, 230, 0, 0.8) ' + percentage + '%, #1b1f20 0%)';
     }
 
     setRank(rank) {

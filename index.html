@@ -7,14 +7,14 @@
     <body>
         <br>
         <br>
-        <div class="w3-container offAtStart">
+        <div class="w3-container offAtStart" style="height:50%">
             <table>
                 <tr>
                     <td>
                         <table class="bordered">
                             <caption><strong>Rank</strong></caption>
                             <tr>
-                                <td class="text" id="rank"><strong>Beginner</strong></td>
+                                <td class="text" id="rank"><strong>Beeswax</strong></td>
                             </tr>
                         </table>
                     </td>
@@ -28,7 +28,15 @@
                     </td>
                     <td>
                         <table class="bordered">
-                            <caption><strong>Clear Rate</strong></caption>
+                            <caption><strong>Score %</strong></caption>
+                            <tr>
+                                <td class="text" id="pointThreshold"><strong>0%</strong></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="bordered">
+                            <caption><strong>Words %</strong></caption>
                             <tr>
                                 <td class="text" id="threshold"><strong>0%</strong></td>
                             </tr>
@@ -111,16 +119,14 @@
             </table>
         </div>
         <div class="w3-container offAtStart" id="usedLetterRow">
-            <table class="bordered">
-                <caption><strong>Current Guess</strong></caption>
+            <table>
                 <tr>
-                    <td id="guess"></td>
+                    <td id="guess" class="text"></td>
                 </tr>
             </table>
         </div>
         <div class="w3-container offAtStart" id="unusedLetterRow">
-            <table class="bordered hex">
-                <caption><strong>Your Tiles</strong></caption>
+            <table class="hex">
                 <tr>
                     <td>
                         <table>
@@ -169,12 +175,8 @@
             </table>
             <table class="onAtStartOnly newGame">
                 <tr>
-                    <td><button onclick="newGame(this)">New Game</button></td>
-                </tr>
-            </table>
-            <table class="round">
-                <tr>
-                    <td><button onclick="nextRound(this)">Next Round</button></td>
+                    <td><button onclick="todaysGame(this)">Play Today's Puzzle</button></td>
+                    <td><button onclick="newGame(this)">Play Random Puzzle</button></td>
                 </tr>
             </table>
         </div>
@@ -224,6 +226,7 @@
     <script src="js/wordlist/y.js"></script>
     <script src="js/wordlist/z.js"></script>
     <script src="js/puzzles.js"></script>
+    <script src="js/seedrandom-min.js"></script>
     <script src="js/dictionary.js"></script>
     <script src="js/rank.js"></script>
     <script src="js/hivemind.js"></script>

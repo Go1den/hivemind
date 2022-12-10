@@ -31,6 +31,19 @@ class Dictionary {
         this.#allWords.set('z', zWords);
     }
 
+    isValidPuzzle(word, center) {
+        let firstLetter = word.charAt(0).toLowerCase();
+        let wordList = this.#allWords.get(firstLetter);
+        let match = puzzles.find(e => e.includes(word));
+        if (match !== undefined) {
+            let validCenterLetters = match.split(',')[1];
+            if (validCenterLetters.includes(center)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     getRandomPuzzle() {
         let index = Math.floor(Math.random() * puzzles.length);
         return puzzles[index];
