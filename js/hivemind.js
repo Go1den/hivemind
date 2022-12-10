@@ -16,11 +16,14 @@ class Hivemind {
     pageManager;
     totalRoundPoints;
     lastSubmittedGuess = '';
+    clearRate = 0;
+    rank;
 
     constructor() {
         this.dictionary = new Dictionary();
         this.soundboard = new Soundboard();
         this.pageManager = new PageManager();
+        this.rank = new Rank();
     }
 
     newGame() {
@@ -39,7 +42,6 @@ class Hivemind {
         this.originalPositionArray = [];
         this.letters = this.upperCaseSeedWord.split('');
         this.pageManager.clearAllTables();
-        // this.pageManager.populateAnswerTable(this.answerArray);
         this.scramble(false);
         this.setTotalPossibleRoundPoints();
         this.setThreshold();
@@ -90,9 +92,6 @@ class Hivemind {
             this.soundboard.playSound("gameOverSound", .1);
         }
         else {
-            if (!isGameOver) {
-                this.scoreWord(1000);
-            }
             this.pageManager.hideNewGameButton();
             this.pageManager.displayNextRoundButton();
             this.soundboard.playSound("clearSound", .1);
@@ -103,7 +102,7 @@ class Hivemind {
         if (points == 4) {
             points = 1;
         }
-        if (isPangram) {
+        if (isPangram) { //TODO this isn't implemented yet. Need to determine if a word is a pangram before arriving here
             points += 7;
         }
         this.score += points;
@@ -113,10 +112,11 @@ class Hivemind {
     }
 
     setThreshold() {
-        if (this.roundThresholdPoints > 0) {
-            document.getElementById("threshold").innerHTML = '<strong>' + this.roundThresholdPoints + '</strong>';
-        } else {
-            document.getElementById("threshold").innerHTML = '<strong>' + 'Clear!' + '</strong>';
+        if (this.isGameGoing) {
+            let percentage = Math.round(1000 * (this.foundWords.length / this.answerArray.length)) / 10;
+            console.log(percentage);
+            this.pageManager.setThreshold(percentage);
+            this.pageManager.setRank(this.rank.getRank(percentage));
         }
     }
 
@@ -137,8 +137,8 @@ class Hivemind {
             this.lastSubmittedGuess = word;
             if (answerArrayIndex >= 0 && foundWordsIndex < 0) {
                 this.revealWord(answerArrayIndex);
-                this.scoreWord(word.length);
                 this.foundWords.push(word);
+                this.scoreWord(word.length);
                 if (this.foundWords.length === this.answerArray.length) {
                     this.#endRound(false);
                 } else {
@@ -187,14 +187,22 @@ class Hivemind {
 
     scramble(playSound) {
         if (this.isGameGoing) {
-            let tempArray = [...this.letters];
-            let currentIndex = tempArray.length,  randomIndex;
-            while (currentIndex != 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-            [tempArray[currentIndex], tempArray[randomIndex]] = [tempArray[randomIndex], tempArray[currentIndex]];
+            let copyLettersArray = [...this.letters];
+            let centerLetterIndex = copyLettersArray.indexOf(this.seedCenterLetter.toUpperCase());
+            copyLettersArray.splice(centerLetterIndex, 1);
+            let newArray = [];
+            for (let i=0; i<3; i++) {
+                let nextIndex = Math.floor(Math.random() * copyLettersArray.length);
+                newArray.push(copyLettersArray[nextIndex]);
+                copyLettersArray.splice(nextIndex, 1);
             }
-            this.scrambledLetters = tempArray;
+            newArray.push(this.seedCenterLetter.toUpperCase());
+            for (let j=0; j<3; j++) {
+                let nextIndex = Math.floor(Math.random() * copyLettersArray.length);
+                newArray.push(copyLettersArray[nextIndex]);
+                copyLettersArray.splice(nextIndex, 1);
+            }
+            this.scrambledLetters = newArray;
             this.pageManager.clearGuess();
             this.pageManager.populateUnusedLetterTable(this.scrambledLetters);
             this.usedLetterIndex = 1;

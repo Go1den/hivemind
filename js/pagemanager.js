@@ -115,4 +115,12 @@ class PageManager {
         document.getElementById("usedLetterRow").style.display = 'none';
         document.getElementById("unusedLetterRow").style.display = 'none';
     }
+
+    setThreshold(percentage) {
+        document.getElementById("threshold").innerHTML = '<strong>' + percentage + '%</strong>';
+    }
+
+    setRank(rank) {
+        document.getElementById("rank").innerHTML = '<strong>' + rank + '</strong>';
+    }
 }

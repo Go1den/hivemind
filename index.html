@@ -14,7 +14,7 @@
                         <table class="bordered">
                             <caption><strong>Rank</strong></caption>
                             <tr>
-                                <td class="text" id="round"><strong>Beginner</strong></td>
+                                <td class="text" id="rank"><strong>Beginner</strong></td>
                             </tr>
                         </table>
                     </td>
@@ -85,13 +85,27 @@
             <table class="bordered">
                 <caption><strong>Your Tiles</strong></caption>
                 <tr>
-                    <td id="unusedLetterRow1" class="letterRow" onclick="addLetter('unusedLetterRow1')"></td>
-                    <td id="unusedLetterRow2" class="letterRow" onclick="addLetter('unusedLetterRow2')"></td>
-                    <td id="unusedLetterRow3" class="letterRow" onclick="addLetter('unusedLetterRow3')"></td>
-                    <td id="unusedLetterRow4" class="letterRow" onclick="addLetter('unusedLetterRow4')"></td>
-                    <td id="unusedLetterRow5" class="letterRow" onclick="addLetter('unusedLetterRow5')"></td>
-                    <td id="unusedLetterRow6" class="letterRow" onclick="addLetter('unusedLetterRow6')"></td>
-                    <td id="unusedLetterRow7" class="letterRow" onclick="addLetter('unusedLetterRow7')"></td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td id="unusedLetterRow1" class="letterRow" onclick="addLetter('unusedLetterRow1')"></td>
+                                <td id="unusedLetterRow2" class="letterRow" onclick="addLetter('unusedLetterRow2')"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td id="unusedLetterRow3" class="letterRow" onclick="addLetter('unusedLetterRow3')"></td>
+                                <td id="unusedLetterRow4" class="letterRow" onclick="addLetter('unusedLetterRow4')"></td>
+                                <td id="unusedLetterRow5" class="letterRow" onclick="addLetter('unusedLetterRow5')"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td id="unusedLetterRow6" class="letterRow" onclick="addLetter('unusedLetterRow6')"></td>
+                                <td id="unusedLetterRow7" class="letterRow" onclick="addLetter('unusedLetterRow7')"></td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -162,6 +176,7 @@
     <script src="js/wordlist/z.js"></script>
     <script src="js/puzzles.js"></script>
     <script src="js/dictionary.js"></script>
+    <script src="js/rank.js"></script>
     <script src="js/hivemind.js"></script>
     <script src="js/soundboard.js"></script>
     <script src="js/pagemanager.js"></script>
