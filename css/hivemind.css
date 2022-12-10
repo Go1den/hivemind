@@ -22,6 +22,10 @@ caption {
     margin-bottom: 0px;
 }
 
+.hex {
+    width: 150px;
+}
+
 div {
     width: 800px;
     margin-left: auto;
