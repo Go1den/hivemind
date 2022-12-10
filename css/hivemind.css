@@ -7,9 +7,16 @@ caption {
     background-color: rgb(6, 24, 19);
 }
 
-.scroll {
+.scrollY {
     height: 300px;
     overflow-y: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.scrollX {
+    height: 50px;
+    overflow-x: auto;
     margin-top: 0px;
     margin-bottom: 0px;
 }

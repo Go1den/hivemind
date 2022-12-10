@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Word Whiz by Go1den</title>
+        <title>Hive Mind by Go1den</title>
         <link rel="stylesheet" href="css/w3.css">
         <link rel="stylesheet" href="css/hivemind.css">
     </head>
@@ -12,9 +12,9 @@
                 <tr>
                     <td>
                         <table class="bordered">
-                            <caption><strong>Round</strong></caption>
+                            <caption><strong>Rank</strong></caption>
                             <tr>
-                                <td class="text" id="round"><strong>1</strong></td>
+                                <td class="text" id="round"><strong>Beginner</strong></td>
                             </tr>
                         </table>
                     </td>
@@ -28,18 +28,10 @@
                     </td>
                     <td>
                         <table class="bordered">
-                            <caption><strong>To Advance</strong></caption>
+                            <caption><strong>Clear Rate</strong></caption>
                             <tr>
-                                <td class="text" id="threshold"><strong>0</strong></td>
+                                <td class="text" id="threshold"><strong>0%</strong></td>
                             </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table class="bordered">
-                            <caption><strong>Time</strong></caption>
-                        <tr>
-                            <td class="text" id="timer"><strong>2:00</strong></td>
-                        </tr>
                         </table>
                     </td>
                 </tr>
@@ -49,46 +41,7 @@
             <table class="bordered">
                 <caption><strong>Answer Board</strong></caption>
                 <tr>
-                    <td onclick="onAnswerBoardClick(this, 1)" id="answer1"></td>
-                    <td onclick="onAnswerBoardClick(this, 8)" id="answer8"></td>
-                    <td onclick="onAnswerBoardClick(this, 15)" id="answer15"></td>
-                    <td onclick="onAnswerBoardClick(this, 22)" id="answer22"></td>
-                </tr>
-                <tr>
-                    <td onclick="onAnswerBoardClick(this, 2)" id="answer2"></td>
-                    <td onclick="onAnswerBoardClick(this, 9)" id="answer9"></td>
-                    <td onclick="onAnswerBoardClick(this, 16)" id="answer16"></td>
-                    <td onclick="onAnswerBoardClick(this, 23)" id="answer23"></td>
-                </tr>
-                <tr>
-                    <td onclick="onAnswerBoardClick(this, 3)" id="answer3"></td>
-                    <td onclick="onAnswerBoardClick(this, 10)" id="answer10"></td>
-                    <td onclick="onAnswerBoardClick(this, 17)" id="answer17"></td>
-                    <td onclick="onAnswerBoardClick(this, 24)" id="answer24"></td>
-                </tr>
-                <tr>
-                    <td onclick="onAnswerBoardClick(this, 4)" id="answer4"></td>
-                    <td onclick="onAnswerBoardClick(this, 11)" id="answer11"></td>
-                    <td onclick="onAnswerBoardClick(this, 18)" id="answer18"></td>
-                    <td onclick="onAnswerBoardClick(this, 25)" id="answer25"></td>
-                </tr>
-                <tr>
-                    <td onclick="onAnswerBoardClick(this, 5)" id="answer5"></td>
-                    <td onclick="onAnswerBoardClick(this, 12)" id="answer12"></td>
-                    <td onclick="onAnswerBoardClick(this, 19)" id="answer19"></td>
-                    <td onclick="onAnswerBoardClick(this, 26)" id="answer26"></td>
-                </tr>
-                <tr>
-                    <td onclick="onAnswerBoardClick(this, 6)" id="answer6"></td>
-                    <td onclick="onAnswerBoardClick(this, 13)" id="answer13"></td>
-                    <td onclick="onAnswerBoardClick(this, 20)" id="answer20"></td>
-                    <td onclick="onAnswerBoardClick(this, 27)" id="answer27"></td>
-                </tr>
-                <tr>
-                    <td onclick="onAnswerBoardClick(this, 7)" id="answer7"></td>
-                    <td onclick="onAnswerBoardClick(this, 14)" id="answer14"></td>
-                    <td onclick="onAnswerBoardClick(this, 21)" id="answer21"></td>
-                    <td onclick="onAnswerBoardClick(this, 28)" id="answer28"></td>
+                    <td><div class="scrollX" id="answerText"></div></td>
                 </tr>
             </table>
         </div>
@@ -116,7 +69,7 @@
             <table class="bordered definition">
                 <caption><strong>Definition (Click an answer above)</strong></caption>
                 <tr>
-                    <td><div class="scroll" id="definitionText"></div></td>
+                    <td><div class="scrollY" id="definitionText"></div></td>
                 </tr>
             </table>
         </div>
@@ -124,12 +77,7 @@
             <table class="bordered">
                 <caption><strong>Current Guess</strong></caption>
                 <tr>
-                    <td id="usedLetterRow1" class="letterRow" onclick="putSelectedLetterBack(this, 1)"></td>
-                    <td id="usedLetterRow2" class="letterRow" onclick="putSelectedLetterBack(this, 2)"></td>
-                    <td id="usedLetterRow3" class="letterRow" onclick="putSelectedLetterBack(this, 3)"></td>
-                    <td id="usedLetterRow4" class="letterRow" onclick="putSelectedLetterBack(this, 4)"></td>
-                    <td id="usedLetterRow5" class="letterRow" onclick="putSelectedLetterBack(this, 5)"></td>
-                    <td id="usedLetterRow6" class="letterRow" onclick="putSelectedLetterBack(this, 6)"></td>
+                    <td id="guess"></td>
                 </tr>
             </table>
         </div>
@@ -137,12 +85,13 @@
             <table class="bordered">
                 <caption><strong>Your Tiles</strong></caption>
                 <tr>
-                    <td id="unusedLetterRow1" class="letterRow" onclick="addLetter('unusedLetterRow1', 1)"></td>
-                    <td id="unusedLetterRow2" class="letterRow" onclick="addLetter('unusedLetterRow2', 2)"></td>
-                    <td id="unusedLetterRow3" class="letterRow" onclick="addLetter('unusedLetterRow3', 3)"></td>
-                    <td id="unusedLetterRow4" class="letterRow" onclick="addLetter('unusedLetterRow4', 4)"></td>
-                    <td id="unusedLetterRow5" class="letterRow" onclick="addLetter('unusedLetterRow5', 5)"></td>
-                    <td id="unusedLetterRow6" class="letterRow" onclick="addLetter('unusedLetterRow6', 6)"></td>
+                    <td id="unusedLetterRow1" class="letterRow" onclick="addLetter('unusedLetterRow1')"></td>
+                    <td id="unusedLetterRow2" class="letterRow" onclick="addLetter('unusedLetterRow2')"></td>
+                    <td id="unusedLetterRow3" class="letterRow" onclick="addLetter('unusedLetterRow3')"></td>
+                    <td id="unusedLetterRow4" class="letterRow" onclick="addLetter('unusedLetterRow4')"></td>
+                    <td id="unusedLetterRow5" class="letterRow" onclick="addLetter('unusedLetterRow5')"></td>
+                    <td id="unusedLetterRow6" class="letterRow" onclick="addLetter('unusedLetterRow6')"></td>
+                    <td id="unusedLetterRow7" class="letterRow" onclick="addLetter('unusedLetterRow7')"></td>
                 </tr>
             </table>
         </div>
@@ -185,10 +134,36 @@
         </div>
     </div>
     </body>
-    <!-- <script src="js/dictionary.js"></script>
-    <script src="js/whiz.js"></script>
+    <script src="js/wordlist/a.js"></script>
+    <script src="js/wordlist/b.js"></script>
+    <script src="js/wordlist/c.js"></script>
+    <script src="js/wordlist/d.js"></script>
+    <script src="js/wordlist/e.js"></script>
+    <script src="js/wordlist/f.js"></script>
+    <script src="js/wordlist/g.js"></script>
+    <script src="js/wordlist/h.js"></script>
+    <script src="js/wordlist/i.js"></script>
+    <script src="js/wordlist/j.js"></script>
+    <script src="js/wordlist/k.js"></script>
+    <script src="js/wordlist/l.js"></script>
+    <script src="js/wordlist/m.js"></script>
+    <script src="js/wordlist/n.js"></script>
+    <script src="js/wordlist/o.js"></script>
+    <script src="js/wordlist/p.js"></script>
+    <script src="js/wordlist/q.js"></script>
+    <script src="js/wordlist/r.js"></script>
+    <script src="js/wordlist/s.js"></script>
+    <script src="js/wordlist/t.js"></script>
+    <script src="js/wordlist/u.js"></script>
+    <script src="js/wordlist/v.js"></script>
+    <script src="js/wordlist/w.js"></script>
+    <script src="js/wordlist/x.js"></script>
+    <script src="js/wordlist/y.js"></script>
+    <script src="js/wordlist/z.js"></script>
+    <script src="js/puzzles.js"></script>
+    <script src="js/dictionary.js"></script>
+    <script src="js/hivemind.js"></script>
     <script src="js/soundboard.js"></script>
-    <script src="js/timer.js"></script>
     <script src="js/pagemanager.js"></script>
-    <script src="js/main.js"></script> -->
+    <script src="js/main.js"></script>
 </html>
