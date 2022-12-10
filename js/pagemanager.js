@@ -85,18 +85,14 @@ class PageManager {
     populateUnusedLetterTable(scrambledLetters) {
         for (let i=0; i<scrambledLetters.length; i++) {
             let currentLetter = scrambledLetters[i];
-            document.getElementById("unusedLetterRow" + (i+1).toString()).innerHTML = '<image src=\"images/tiles/' + currentLetter +'.png\"/>';
+            if (i == 3) {
+                document.getElementById("unusedLetterRow" + (i+1).toString()).innerHTML = '<image src=\"images/tiles/' + currentLetter +'gold.png\"/>';
+            } else {
+                document.getElementById("unusedLetterRow" + (i+1).toString()).innerHTML = '<image src=\"images/tiles/' + currentLetter +'silver.png\"/>';
+            }
         }
     }
-
-    #buildBlankHTML(lettersInWord) {
-        let result = '';
-        for(let i=0; i<lettersInWord; i++) {
-            result += '<image src=\"images/tiles/blank.png\" width=30px; height=30px;/>';
-        }
-        return result;
-    }
-
+    
     updateDefinition(definition) {
         document.getElementById("definitionText").innerHTML = definition;
         document.getElementById("definitionText").scrollTop = 0;
