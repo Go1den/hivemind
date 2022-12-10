@@ -51,18 +51,10 @@ class Hivemind {
         this.pageManager.hideDefinition();
     }
 
-    setRoundThreshold() {
-        this.roundThresholdPoints = Math.floor(this.totalRoundPoints * (.65 + (.05 * this.round)));
-        if (this.roundThresholdPoints > this.totalRoundPoints) {
-            this.roundThresholdPoints = this.totalRoundPoints;
-        } 
-    }
-
     setTotalPossibleRoundPoints() {
         let total = 0;
         for (let i=0; i<this.answerArray.length; i++) {
-            let wordScore = Math.pow(2, this.answerArray[i].length - 3) * 50;
-            total += wordScore;
+            total += this.getWordScore(this.answerArray[i]);
         }
         this.totalRoundPoints = total;
     }
@@ -88,7 +80,7 @@ class Hivemind {
         this.pageManager.hideGuessAndTiles();
         this.pageManager.displayInBetweenGamesElements();
         this.pageManager.hideInBetweenGamesElements();
-        if (isGameOver && this.roundThresholdPoints > 0) {
+        if (isGameOver) {
             this.soundboard.playSound("gameOverSound", .1);
         }
         else {
@@ -98,16 +90,21 @@ class Hivemind {
         }
     }
 
-    scoreWord(points, isPangram) {
+    getWordScore(word) {
+        let points = word.length;
         if (points == 4) {
             points = 1;
         }
-        if (isPangram) { //TODO this isn't implemented yet. Need to determine if a word is a pangram before arriving here
+        let pangramCheck = String.prototype.concat(...new Set(word)).length;
+        if (pangramCheck == 7) {
             points += 7;
         }
-        this.score += points;
+        return points;
+    }
+
+    scoreWord(word) {
+        this.score += this.getWordScore(word);
         this.setScore();
-        this.roundThresholdPoints -= points;
         this.setThreshold();
     }
 
@@ -138,7 +135,7 @@ class Hivemind {
             if (answerArrayIndex >= 0 && foundWordsIndex < 0) {
                 this.revealWord(answerArrayIndex);
                 this.foundWords.push(word);
-                this.scoreWord(word.length);
+                this.scoreWord(word);
                 if (this.foundWords.length === this.answerArray.length) {
                     this.#endRound(false);
                 } else {
