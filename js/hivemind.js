@@ -19,6 +19,8 @@ class Hivemind {
     clearRate = 0;
     rank;
     currentRank = 'Beeswax';
+    isTodaysPuzzle;
+    puzzleID;
 
     constructor() {
         this.dictionary = new Dictionary();
@@ -34,23 +36,33 @@ class Hivemind {
         let yyyy = today.getFullYear();
         today = mm + dd + yyyy;
         Math.seedrandom(today);
+        this.isTodaysPuzzle = true;
         this.newGame();
     }
 
     randomGame() {
         Math.seedrandom();
+        this.isTodaysPuzzle = false;
         this.newGame();
+    }
+
+    specificGame(puzzleID) {
+        Math.seedrandom();
+        this.isTodaysPuzzle = false;
+        this.newGame(puzzleID);
     }
 
     updateURL() {
         const currentURL = location.protocol + '//' + location.host + location.pathname;
-        const nextURL = currentURL + '?puzzle=' + this.seedWord + '&center=' + this.seedCenterLetter;
+        // const nextURL = currentURL + '?puzzle=' + this.seedWord + '&center=' + this.seedCenterLetter;
+        const nextURL = currentURL + '?puzzle=' + this.puzzleID;
         const nextTitle = 'Hive Mind by Go1den';
         const nextState = { additionalInformation: 'New puzzle data' };
         window.history.pushState(nextState, nextTitle, nextURL);
     }
 
-    newGame(puzzle, center) {
+    newGame(puzzleID) {
+        console.log("pid: " + puzzleID);
         this.isGameGoing = true;
         this.usedLetterIndex = 1;
         this.lastSubmittedGuess = '';
@@ -58,16 +70,26 @@ class Hivemind {
         this.currentRank = 'Beeswax';
         this.setScore();
         this.foundWords = new Array();
-        console.log(puzzle);
-        console.log(center);
-        if (puzzle !== undefined && center !== undefined) {
-            let thisPuzzle = puzzle + ',' + center;
-            this.seedPuzzle = thisPuzzle.split(',');
+        let centerLetterIndex;
+        if (puzzleID !== undefined && puzzleID !== null) {
+            console.log("yo");
+            this.seedPuzzle = this.dictionary.getPuzzleByID(puzzleID).split(',');
+            console.log(this.seedPuzzle);
+            centerLetterIndex = Math.floor(puzzleID / 10000) - 1;
+            console.log("centerli: " + centerLetterIndex);
         } else {
+            console.log("yo2");
             this.seedPuzzle = this.dictionary.getRandomPuzzle().split(',');
+            centerLetterIndex = Math.floor(Math.random() * this.seedPuzzle[1].length);
+            console.log("centerli: " + centerLetterIndex);
         }
+        this.puzzleID = Number(this.seedPuzzle[2]);
         this.seedWord = this.seedPuzzle[0];
-        this.seedCenterLetter = this.seedPuzzle[1].charAt(Math.floor(Math.random() * this.seedPuzzle[1].length));
+        console.log("pid: " + this.puzzleID);
+        console.log("centerli: " + centerLetterIndex);
+        this.puzzleID += (10000 * (centerLetterIndex + 1)); //This will always be a 5 digit number where the first digit is 1 + the index of the center letter in the puzzle definition
+        console.log(this.puzzleID);
+        this.seedCenterLetter = this.seedPuzzle[1].charAt(centerLetterIndex);
         this.upperCaseSeedWord = this.seedWord.toUpperCase();
         this.letters = this.seedWord.split('');
         this.answerArray = this.dictionary.getValidWordArray(this.seedWord, this.seedCenterLetter);
@@ -143,6 +165,7 @@ class Hivemind {
         this.setThreshold();
         this.setPointThreshold();
         this.setRankThreshold();
+        this.pageManager.setTweetText(this.currentRank, this.score, document.URL, this.isTodaysPuzzle, this.puzzleID);
     }
 
     setPointThreshold() {

@@ -46,7 +46,16 @@ class Dictionary {
 
     getRandomPuzzle() {
         let index = Math.floor(Math.random() * puzzles.length);
-        return puzzles[index];
+        return puzzles[index] + ',' + index;
+    }
+
+    getPuzzleByID(puzzleID) {
+        let index = puzzleID % 10000;
+        return puzzles[index] + ',' + index;
+    }
+
+    getCenterLetterByID(puzzleID) {
+        return Math.floor(puzzleID / 10000) - 1;
     }
 
     #usesOnlyLettersFromPangram(substring, word) {

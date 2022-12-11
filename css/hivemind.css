@@ -8,6 +8,10 @@ caption {
     color: #fdb002;
 }
 
+.twitter {
+    text-align: center;
+}
+
 .scrollY {
     height: 300px;
     overflow-y: auto;

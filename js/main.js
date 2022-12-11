@@ -1,6 +1,5 @@
 let hivemind = new Hivemind();
 
-
 function todaysGame(e) {
     hivemind.todaysGame();
     e.blur();
@@ -9,6 +8,21 @@ function todaysGame(e) {
 function newGame(e) {
     hivemind.randomGame();
     e.blur();
+}
+
+function linkedGame(e) {
+    let queryString = window.location.search;
+    let urlParams = new URLSearchParams(queryString);
+    let puzzle = urlParams.get('puzzle');
+    if (puzzle !== undefined && puzzle !== null) {
+        hivemind.specificGame(Number(puzzle));
+    } else {
+        alert("The puzzle in your URL is not valid. Try playing today's puzzle or a random puzzle instead!");
+    }
+}
+
+function backToHomeScreen(e) {
+    location.href = "https://go1den.github.io/hive-mind";
 }
 
 function scramble(e) {
@@ -70,12 +84,3 @@ document.addEventListener("keydown", function(event) {
         }
     }
 });
-
-let queryString = window.location.search;
-let urlParams = new URLSearchParams(queryString);
-let puzzle = urlParams.get('puzzle');
-let center = urlParams.get('center');
-
-if (puzzle !== undefined && center !== undefined && hivemind.dictionary.isValidPuzzle(puzzle, center)) {
-    hivemind.newGame(puzzle, center);
-}

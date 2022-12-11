@@ -6,7 +6,6 @@
     </head>
     <body>
         <br>
-        <br>
         <div class="w3-container offAtStart" style="height:50%">
             <table>
                 <tr>
@@ -91,24 +90,6 @@
                     </td>
                 </tr>
             </table>
-            <!-- <table>
-                <tr>
-                    <td class="letterRow"><image src="images/tiles/H.png"/></td>
-                    <td class="letterRow"><image src="images/tiles/I.png"/></td>
-                    <td class="letterRow"><image src="images/tiles/V.png"/></td>
-                    <td class="letterRow"><image src="images/tiles/E.png"/></td>
-                </tr>
-            </table>
-        </div>
-        <div class="w3-container onAtStartOnly" id="wordWhizRow2">
-            <table>
-                <tr>
-                    <td class="letterRow"><image src="images/tiles/M.png"/></td>
-                    <td class="letterRow"><image src="images/tiles/I.png"/></td>
-                    <td class="letterRow"><image src="images/tiles/N.png"/></td>
-                    <td class="letterRow"><image src="images/tiles/D.png"/></td>
-                </tr>
-            </table> -->
         </div>
         <div class="w3-container offAtStart" id="definition">
             <table class="bordered definition">
@@ -177,25 +158,40 @@
                 <tr>
                     <td><button onclick="todaysGame(this)">Play Today's Puzzle</button></td>
                     <td><button onclick="newGame(this)">Play Random Puzzle</button></td>
+                    <td><button onclick="linkedGame(this)">Play Linked Puzzle</button></td>
+                    <td><button onclick="backToHomeScreen(this)">Back to Main Page</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container">
+            <table class="twitter">
+                <tr>
+                    <td id="tweet"><a 
+                        href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
+                        class="twitter-share-button" 
+                        data-size="large" 
+                        data-text="I'm playing #HiveMind, a free word game by @GoldenSRL. Check it out!" 
+                        data-url="https://go1den.github.io/hive-mind" 
+                        data-hashtags="hivemind" 
+                        data-dnt="true" 
+                        data-show-count="false">Tweet</a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </td>
                 </tr>
             </table>
         </div>
         <div class="w3-container onAtStartOnly" id="howToPlay">
             <h3><strong>How to play:</strong></h3>
             <p>Score points by making words using the tiles provided to you.<br>
-            You can use the same tile more than once, but you must always use the center tile in every word.<br>
-            Play the daily puzzle to compare scores with your friends, or play a randomly chosen puzzle.</p>
-            <br>
-            <p><strong>Keyboard</strong></p>
+            You can use the same tile more than once, but you must <strong>always</strong> use the center tile in every word.<br>
+            Words must be between 4 and 17 letters.<br> 
+            Score 1 point for 4 letter words, and n points for n > 4 letter words.<br>
+            Score an extra 7 points if your word uses every letter at least once.<br>
+            <p><strong>Keyboard Shortcuts</strong></p>
             <p>Type any letter to add it to the word.<br>
             Space Bar - Shuffles the tiles in your tray.<br>
             Backspace - Removes the last typed letter.<br>
             Enter - Submits a guess, or types the last submitted guess automatically.</p>
-            <br>
-            <p><strong>Mouse</strong></p>
-            <p>Click on any letter tile to add it to the word.<br>
-            Click on any letter tile in the guessed word to bring it back to the tray.<br>
-            Click on any previously found word in the Answer Board to automatically type it again.</p>
         </div>
     </div>
     </body>
