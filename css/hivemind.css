@@ -5,7 +5,7 @@ body {
 
 caption {
     background-color: rgb(0, 0, 0);
-    color: rgb(255, 230, 0);
+    color: #fdb002;
 }
 
 .scrollY {
@@ -70,9 +70,9 @@ img {
 }
 
 button {
-    background-color: #4CAF50; /* Green */
+    background-color: #fdb002;
     border: none;
-    color: white;
+    color: black;
     padding: 20px;
     text-align: center;
     font-size: 16px;
