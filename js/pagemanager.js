@@ -113,8 +113,16 @@ class PageManager {
     }
 
     setRankThreshold(percentage) {
-        console.log(percentage);
         document.getElementById("rank").style.backgroundPosition = 100 - percentage + '%';
+    }
+
+    animateRankUp() {
+        this.setRankThreshold(100);
+        setTimeout(() => {
+            document.getElementById("rank").classList.remove("progressBar");
+            this.setRankThreshold(0);
+            document.getElementById("rank").classList.add("progressBar");
+        }, 1000);
     }
 
     setThreshold(percentage) {
@@ -149,5 +157,9 @@ class PageManager {
         myUrlWithParameters.searchParams.append("url", puzzleLink);
 
         document.getElementById("tweet").innerHTML = '<a href="' + myUrlWithParameters + '">Click me to Tweet</a>';
+    }
+
+    setScore(score) {
+        document.getElementById("score").innerHTML = '<strong>' + score + '</strong>';
     }
 }

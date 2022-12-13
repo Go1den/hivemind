@@ -68,7 +68,7 @@ class Hivemind {
         this.lastSubmittedGuess = '';
         this.score = 0;
         this.currentRank = 'Beeswax';
-        this.setScore();
+        this.pageManager.setScore(this.score);
         this.foundWords = new Array();
         let centerLetterIndex;
         if (puzzleID !== undefined && puzzleID !== null) {
@@ -100,7 +100,7 @@ class Hivemind {
         this.setTotalPossibleRoundPoints();
         this.setThreshold();
         this.setPointThreshold();
-        this.setRankThreshold();
+        this.setRankThreshold(false);
         this.pageManager.turnOffWelcomeScreenElements();
         this.pageManager.addBorderedClass();
         this.pageManager.turnOnGameElements();
@@ -161,20 +161,27 @@ class Hivemind {
 
     scoreWord(word) {
         this.score += this.getWordScore(word);
-        this.setScore();
+        this.pageManager.setScore(this.score);
         this.setThreshold();
-        this.setPointThreshold();
-        this.setRankThreshold();
+        let isRankUp = this.setPointThreshold();
+        this.setRankThreshold(isRankUp);
         this.pageManager.setTweetText(this.currentRank, this.score, document.URL, this.isTodaysPuzzle, this.puzzleID);
     }
 
     setPointThreshold() {
+        let isRankUp = false;
         if (this.isGameGoing) {
             let percentage = Math.round(1000 * (this.score / this.totalRoundPoints)) / 10;
             this.pageManager.setPointThreshold(percentage);
-            this.currentRank = this.rank.getRank(percentage);
+            let tempRank = this.rank.getRank(percentage);
+            if (this.currentRank !== tempRank) {
+                this.pageManager.animateRankUp();
+                isRankUp = true;
+            }
+            this.currentRank = tempRank;
             this.pageManager.setRank(this.currentRank);
         }
+        return isRankUp;
     }
 
     setThreshold() {
@@ -184,19 +191,15 @@ class Hivemind {
         }
     }
 
-    setRankThreshold() {
+    setRankThreshold(isRankUp) {
         if (this.isGameGoing) {
             let percentage = this.rank.getProgressToNextRank(this.currentRank, this.totalRoundPoints, this.score);
-            this.pageManager.setRankThreshold(percentage); 
+            if (isRankUp) {
+                setTimeout(() => {this.pageManager.setRankThreshold(percentage)}, 2000);
+            } else {
+                this.pageManager.setRankThreshold(percentage); 
+            }
         }
-    }
-
-    setScore() {
-        document.getElementById("score").innerHTML = '<strong>' + this.score + '</strong>';
-    }
-
-    setRound() {
-        document.getElementById("round").innerHTML = '<strong>' + this.round + '</strong>';
     }
 
     submit() {
