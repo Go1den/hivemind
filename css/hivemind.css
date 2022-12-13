@@ -8,6 +8,14 @@ caption {
     color: #fdb002;
 }
 
+
+.progressBar {
+    background: linear-gradient(to right, rgba(253, 176, 2, 0.8) 50%, #1b1f20 0%);
+    background-size: 200%;
+    background-position: 0%;
+    transition: background-position 1s;
+}
+
 .twitter {
     text-align: center;
 }

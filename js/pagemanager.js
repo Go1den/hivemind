@@ -114,17 +114,17 @@ class PageManager {
 
     setRankThreshold(percentage) {
         console.log(percentage);
-        document.getElementById("rank").style.background = 'linear-gradient(to right, rgba(253, 176, 2, 0.8) ' + percentage + '%, #1b1f20 0%)';
+        document.getElementById("rank").style.backgroundPosition = 100 - percentage + '%';
     }
 
     setThreshold(percentage) {
         document.getElementById("threshold").innerHTML = '<strong>' + percentage + '%</strong>';
-        document.getElementById("threshold").style.background = 'linear-gradient(to right, rgba(253, 176, 2, 0.8) ' + percentage + '%, #1b1f20 0%)';
+        document.getElementById("threshold").style.backgroundPosition = 100 - percentage + '%';
     }
 
     setPointThreshold(percentage) {
         document.getElementById("pointThreshold").innerHTML = '<strong>' + percentage + '%</strong>';
-        document.getElementById("pointThreshold").style.background = 'linear-gradient(to right, rgba(253, 176, 2, 0.8) ' + percentage + '%, #1b1f20 0%)';
+        document.getElementById("pointThreshold").style.backgroundPosition = 100 - percentage + '%';
     }
 
     setRank(rank) {
