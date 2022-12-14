@@ -23,7 +23,7 @@ class Rank {
         } else if (percentage < 100) {
             return "Beekeeper";
         } else {
-            return "The Bee's Knees";
+            return "Bee's Knees";
         }
     }
 
