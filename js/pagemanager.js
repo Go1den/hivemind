@@ -55,6 +55,7 @@ class PageManager {
 
     clearAllTables() {
         this.clearAnswerTable();
+        this.clearRevealedAnswerTable();
         this.clearUnusedLetterRow();
     }
 
@@ -68,12 +69,22 @@ class PageManager {
         answerTextDiv.scrollLeft = answerTextDiv.scrollWidth;
     }
 
+    revealMissedWord(word, index) {
+        let answerTextDiv = document.getElementById("revealedAnswerText");
+        answerTextDiv.innerHTML += '<span id="' + word + '" onclick="onAnswerBoardClick(this, ' + index + ')"><strong>&nbsp;' + word + '&nbsp;</strong></span>';
+        answerTextDiv.scrollLeft = answerTextDiv.scrollWidth;
+    }
+
     getGuess() {
         return document.getElementById("guess").innerHTML;
     }
 
     clearAnswerTable() {
         document.getElementById("answerText").innerHTML = '';
+    }
+
+    clearRevealedAnswerTable() {
+        document.getElementById("revealedAnswerText").innerHTML = '';
     }
 
     clearUnusedLetterRow() {
@@ -110,6 +121,14 @@ class PageManager {
     hideGuessAndTiles() {
         document.getElementById("usedLetterRow").style.display = 'none';
         document.getElementById("unusedLetterRow").style.display = 'none';
+    }
+
+    hideMissedWordsTable() {
+        document.getElementById("revealedAnswerTable").style.display = 'none';
+    }
+
+    showMissedWordsTable() {
+        document.getElementById("revealedAnswerTable").style.display = 'initial';
     }
 
     setRankThreshold(percentage) {
