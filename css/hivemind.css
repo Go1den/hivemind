@@ -8,6 +8,15 @@ caption {
     color: #fdb002;
 }
 
+#toast {
+    opacity: 1;
+    transition: opacity 2s;
+}
+
+#toast.fade {
+    opacity: 0;
+}
+
 .progressBar {
     background: linear-gradient(to right, rgba(253, 176, 2, 0.8) 50%, #1b1f20 0%);
     background-size: 200%;

@@ -133,25 +133,44 @@ class Hivemind {
         this.soundboard.playSound("gameOverSound", .25);
     }
 
-    getWordScore(word) {
+    getWordScore(word, isPangram) {
         let points = word.length;
         if (points == 4) {
             points = 1;
         }
-        let pangramCheck = String.prototype.concat(...new Set(word)).length;
-        if (pangramCheck == 7) {
+        if (isPangram) {
             points += 7;
         }
         return points;
     }
 
+    isPangram(word) {
+        let pangramCheck = String.prototype.concat(...new Set(word)).length;
+        return pangramCheck == 7;
+    }
+
     scoreWord(word) {
-        this.score += this.getWordScore(word);
+        let isPangram = this.isPangram(word);
+        let thisScore = this.getWordScore(word, isPangram);
+        this.score += thisScore;
         this.pageManager.setScore(this.score);
         this.setThreshold();
         let isRankUp = this.setPointThreshold();
         this.setRankThreshold(isRankUp);
+        this.pageManager.setToast(this.getToastTextForWord(thisScore, isPangram));
         this.pageManager.setTweetText(this.currentRank, this.score, document.URL, this.isTodaysPuzzle, this.puzzleID);
+    }
+
+    getToastTextForWord(points, isPangram) {
+        if (isPangram) {
+            return 'Pangram! +' + points;
+        } else if (points == 1) {
+            return 'Good! +' + points;
+        } else if (points > 4 && points < 7) {
+            return 'Nice! +' + points;
+        } else {
+            return 'Awesome! +' + points; 
+        }
     }
 
     setPointThreshold() {
@@ -190,11 +209,10 @@ class Hivemind {
     submit() {
         let word = this.pageManager.getGuess();
         let answerArrayIndex = this.answerArray.indexOf(word);
-        let foundWordsIndex = this.foundWords.indexOf(word);
 
         if (word.length > 0) {
             this.lastSubmittedGuess = word;
-            if (answerArrayIndex >= 0 && foundWordsIndex < 0) {
+            if (this.isSubmissionValid(word, answerArrayIndex)) {
                 this.revealWord(answerArrayIndex);
                 this.foundWords.push(word);
                 this.scoreWord(word);
@@ -211,6 +229,23 @@ class Hivemind {
             }
         }
         return;
+    }
+
+    isSubmissionValid(word, answerArrayIndex) {
+        if (word.length < 4) {
+            this.pageManager.setToast("Too short!");
+            return false;
+        }
+        let foundWordsIndex = this.foundWords.indexOf(word);
+        if (foundWordsIndex >= 0) {
+            this.pageManager.setToast("Already found!");
+            return false;
+        }
+        if (answerArrayIndex < 0) {
+            this.pageManager.setToast("Not in word list!");
+            return false;
+        }
+        return true;
     }
 
     typeLetter(letter) {

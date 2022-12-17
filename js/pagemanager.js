@@ -1,4 +1,7 @@
 class PageManager {
+
+    timeoutID;
+
     constructor() {
 
     };
@@ -142,6 +145,7 @@ class PageManager {
             soundboard.playSound("rankUpSound", 0.25);
             this.setRankThreshold(0);
             this.setRank(currentRank);
+            this.setToast("Rank up!");
             document.getElementById("rank").classList.add("progressBar");
         }, 1000);
     }
@@ -182,5 +186,23 @@ class PageManager {
 
     setScore(score) {
         document.getElementById("score").innerHTML = '<strong>' + score + '</strong>';
+    }
+
+    setToast(text) {
+        this.interruptFade();
+        let toast = document.getElementById("toast");
+        document.getElementById("toast").innerHTML = text;
+        toast.classList.remove('fade');
+        this.timeoutID = setTimeout(() => {
+            toast.classList.add('fade');
+            this.timeoutID = 0;
+        }, 2000);
+    }
+
+    interruptFade() {
+        if (this.timeoutID > 0) {
+            clearTimeout(this.timeoutID);
+            this.timeoutID = 0;
+        }
     }
 }
