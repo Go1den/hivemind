@@ -2,16 +2,16 @@ class Soundboard {
     correctSound = new Audio("audio/correct.mp3");
     wrongSound = new Audio("audio/wrong.mp3");
     shuffleSound = new Audio("audio/shuffle.mp3");
-    clearSound = new Audio("audio/clear.mp3");
     gameOverSound = new Audio("audio/gameover.mp3");
+    rankUpSound = new Audio("audio/rankup.mp3");
     soundMap = new Map();
 
     constructor () {
         this.soundMap.set("correctSound", this.correctSound);
         this.soundMap.set("wrongSound", this.wrongSound);
         this.soundMap.set("shuffleSound", this.shuffleSound);
-        this.soundMap.set("clearSound", this.clearSound);
         this.soundMap.set("gameOverSound", this.gameOverSound);
+        this.soundMap.set("rankUpSound", this.rankUpSound);
     }
 
     playSound(soundName, volume) {

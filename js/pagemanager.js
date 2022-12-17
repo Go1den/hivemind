@@ -135,11 +135,13 @@ class PageManager {
         document.getElementById("rank").style.backgroundPosition = 100 - percentage + '%';
     }
 
-    animateRankUp() {
+    animateRankUp(soundboard, currentRank) {
         this.setRankThreshold(100);
         setTimeout(() => {
             document.getElementById("rank").classList.remove("progressBar");
+            soundboard.playSound("rankUpSound", 0.25);
             this.setRankThreshold(0);
+            this.setRank(currentRank);
             document.getElementById("rank").classList.add("progressBar");
         }, 1000);
     }

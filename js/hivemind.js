@@ -66,6 +66,7 @@ class Hivemind {
         this.lastSubmittedGuess = '';
         this.score = 0;
         this.currentRank = 'Beeswax';
+        this.pageManager.setRank(this.currentRank);
         this.pageManager.setScore(this.score);
         this.foundWords = new Array();
         let centerLetterIndex;
@@ -119,24 +120,17 @@ class Hivemind {
                 this.foundWords.push(word);
             }
         }
-        this.#endRound(true);
+        this.#endRound();
     }
 
-    #endRound(isGameOver) {
+    #endRound() {
         this.isGameGoing = false;
         this.pageManager.showDefinition();
         this.pageManager.showMissedWordsTable();
         this.pageManager.hideGuessAndTiles();
         this.pageManager.displayInBetweenGamesElements();
         this.pageManager.hideInBetweenGamesElements();
-        if (isGameOver) {
-            this.soundboard.playSound("gameOverSound", .1);
-        }
-        else {
-            this.pageManager.hideNewGameButton();
-            this.pageManager.displayNextRoundButton();
-            this.soundboard.playSound("clearSound", .1);
-        }
+        this.soundboard.playSound("gameOverSound", .25);
     }
 
     getWordScore(word) {
@@ -167,11 +161,10 @@ class Hivemind {
             this.pageManager.setPointThreshold(percentage);
             let tempRank = this.rank.getRank(percentage);
             if (this.currentRank !== tempRank) {
-                this.pageManager.animateRankUp();
+                this.currentRank = tempRank;
+                this.pageManager.animateRankUp(this.soundboard, this.currentRank);
                 isRankUp = true;
             }
-            this.currentRank = tempRank;
-            this.pageManager.setRank(this.currentRank);
         }
         return isRankUp;
     }
@@ -206,12 +199,12 @@ class Hivemind {
                 this.foundWords.push(word);
                 this.scoreWord(word);
                 if (this.foundWords.length === this.answerArray.length) {
-                    this.#endRound(false);
+                    this.#endRound();
                 } else {
                     this.soundboard.playSound("correctSound", 0.5);
                 }
             } else {
-                this.soundboard.playSound("wrongSound", 1);
+                this.soundboard.playSound("wrongSound", 0.3);
             }
             for (let i=0; i<word.length; i++) {
                 this.putLetterBack();
@@ -278,7 +271,7 @@ class Hivemind {
             this.usedLetterIndex = 1;
             this.originalPositionArray = [];
             if (playSound) {
-                this.soundboard.playSound("shuffleSound", 0.4);
+                this.soundboard.playSound("shuffleSound", 0.15);
             }
         }
     }
