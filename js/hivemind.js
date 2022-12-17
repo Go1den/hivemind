@@ -236,6 +236,10 @@ class Hivemind {
             this.pageManager.setToast("Too short!");
             return false;
         }
+        if (!word.includes(this.seedCenterLetter.toUpperCase())) {
+            this.pageManager.setToast("Missing center letter!");
+            return false;
+        }
         let foundWordsIndex = this.foundWords.indexOf(word);
         if (foundWordsIndex >= 0) {
             this.pageManager.setToast("Already found!");
