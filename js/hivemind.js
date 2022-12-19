@@ -272,17 +272,16 @@ class Hivemind {
 
     addLetter(field) {
         let letterToBeAdded = document.getElementById(field).innerHTML[23];
-        console.log(letterToBeAdded);
         if (this.usedLetterIndex < 18 && letterToBeAdded !== '' && letterToBeAdded !== undefined) {
-            document.getElementById("guess").innerHTML += letterToBeAdded;
+            let className = letterToBeAdded == this.seedCenterLetter.toUpperCase() ? 'textY' : 'textW';
+            this.pageManager.addLetterToGuess(letterToBeAdded, className)
             this.usedLetterIndex++;
         }
     }
 
     putLetterBack() {
         if (this.usedLetterIndex > 1) {
-            let currentGuess = document.getElementById("guess").innerHTML;
-            document.getElementById("guess").innerHTML = currentGuess.slice(0, -1);
+            this.pageManager.removeLetterFromGuess();
             this.usedLetterIndex--;
         }
     }
@@ -306,7 +305,7 @@ class Hivemind {
             }
             this.scrambledLetters = newArray;
             this.pageManager.clearGuess();
-            this.pageManager.populateUnusedLetterTable(this.scrambledLetters);
+            this.pageManager.shuffleTiles(this.scrambledLetters);
             this.usedLetterIndex = 1;
             this.originalPositionArray = [];
             if (playSound) {

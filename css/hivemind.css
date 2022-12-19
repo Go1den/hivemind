@@ -8,6 +8,14 @@ caption {
     color: #fdb002;
 }
 
+.textW {
+    color: #ffffff;
+}
+
+.textY {
+    color: #fdb002;
+}
+
 #toast {
     opacity: 1;
     transition: opacity 2s;

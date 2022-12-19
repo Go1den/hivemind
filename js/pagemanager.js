@@ -79,7 +79,12 @@ class PageManager {
     }
 
     getGuess() {
-        return document.getElementById("guess").innerHTML;
+        let spans = document.getElementById("guess").getElementsByTagName("span");
+        let guess = '';
+        for (let i=0; i<spans.length; i++) {
+            guess += spans[i].innerHTML;
+        }
+        return guess;
     }
 
     clearAnswerTable() {
@@ -96,7 +101,7 @@ class PageManager {
         }
     }
 
-    populateUnusedLetterTable(scrambledLetters) {
+    shuffleTiles(scrambledLetters) {
         for (let i=0; i<scrambledLetters.length; i++) {
             let currentLetter = scrambledLetters[i];
             if (i == 3) {
@@ -171,8 +176,6 @@ class PageManager {
         } else {
             text += ' in #HiveMind, a word game by @GoldenSRL! Can you beat my score? Click "Play Linked Puzzle" to find out!';
         }
-        console.log(puzzleLink);
-        console.log(text);
         let hashtags = "hivemind" + puzzleID;
 
         let myUrlWithParameters = new URL ("https://twitter.com/intent/tweet");
@@ -204,5 +207,14 @@ class PageManager {
             clearTimeout(this.timeoutID);
             this.timeoutID = 0;
         }
+    }
+
+    addLetterToGuess(letter, className) {
+        document.getElementById("guess").innerHTML += '<span class="' + className + '">' + letter + '</span>';
+    }
+
+    removeLetterFromGuess() {
+        let current = document.getElementById("guess").innerHTML;
+        document.getElementById("guess").innerHTML = current.substring(0, current.length - 30);
     }
 }
