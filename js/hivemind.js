@@ -21,6 +21,7 @@ class Hivemind {
     currentRank = 'Beeswax';
     isTodaysPuzzle;
     puzzleID;
+    isSoundOn = true;
 
     constructor() {
         this.dictionary = new Dictionary();
@@ -130,7 +131,7 @@ class Hivemind {
         this.pageManager.hideGuessAndTiles();
         this.pageManager.displayInBetweenGamesElements();
         this.pageManager.hideInBetweenGamesElements();
-        this.soundboard.playSound("gameOverSound", .25);
+        this.soundboard.playSound("gameOverSound", .25, this.isSoundOn);
     }
 
     getWordScore(word, isPangram) {
@@ -181,7 +182,7 @@ class Hivemind {
             let tempRank = this.rank.getRank(percentage);
             if (this.currentRank !== tempRank) {
                 this.currentRank = tempRank;
-                this.pageManager.animateRankUp(this.soundboard, this.currentRank);
+                this.pageManager.animateRankUp(this.soundboard, this.currentRank, this.isSoundOn);
                 isRankUp = true;
             }
         }
@@ -219,10 +220,10 @@ class Hivemind {
                 if (this.foundWords.length === this.answerArray.length) {
                     this.#endRound();
                 } else {
-                    this.soundboard.playSound("correctSound", 0.5);
+                    this.soundboard.playSound("correctSound", 0.5, this.isSoundOn);
                 }
             } else {
-                this.soundboard.playSound("wrongSound", 0.3);
+                this.soundboard.playSound("wrongSound", 0.3, this.isSoundOn);
             }
             for (let i=0; i<word.length; i++) {
                 this.putLetterBack();
@@ -309,7 +310,7 @@ class Hivemind {
             this.usedLetterIndex = 1;
             this.originalPositionArray = [];
             if (playSound) {
-                this.soundboard.playSound("shuffleSound", 0.15);
+                this.soundboard.playSound("shuffleSound", 0.15, this.isSoundOn);
             }
         }
     }
@@ -348,5 +349,10 @@ class Hivemind {
             let result = await this.dictionary.lookup(word);
             this.pageManager.updateDefinition(result);
         }
+    }
+
+    toggleSound() {
+        this.isSoundOn = !this.isSoundOn;
+        this.pageManager.updateSoundButton(this.isSoundOn);
     }
 }

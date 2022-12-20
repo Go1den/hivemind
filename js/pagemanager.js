@@ -143,11 +143,11 @@ class PageManager {
         document.getElementById("rank").style.backgroundPosition = 100 - percentage + '%';
     }
 
-    animateRankUp(soundboard, currentRank) {
+    animateRankUp(soundboard, currentRank, isSoundOn) {
         this.setRankThreshold(100);
         setTimeout(() => {
             document.getElementById("rank").classList.remove("progressBar");
-            soundboard.playSound("rankUpSound", 0.25);
+            soundboard.playSound("rankUpSound", 0.25, isSoundOn);
             this.setRankThreshold(0);
             this.setRank(currentRank);
             this.setToast("Rank up!");
@@ -216,5 +216,9 @@ class PageManager {
     removeLetterFromGuess() {
         let current = document.getElementById("guess").innerHTML;
         document.getElementById("guess").innerHTML = current.substring(0, current.length - 30);
+    }
+    updateSoundButton(isSoundOn) {
+        let text = isSoundOn ? 'Mute' : 'Unmute';
+        document.getElementById("soundButton").innerHTML = text;
     }
 }

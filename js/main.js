@@ -1,5 +1,10 @@
 let hivemind = new Hivemind();
 
+function toggleSound(e) {
+    hivemind.toggleSound();
+    e.blur();
+}
+
 function todaysGame(e) {
     hivemind.todaysGame();
     e.blur();

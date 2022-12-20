@@ -14,11 +14,13 @@ class Soundboard {
         this.soundMap.set("rankUpSound", this.rankUpSound);
     }
 
-    playSound(soundName, volume) {
-        let targetSound = this.soundMap.get(soundName);
-        targetSound.currentTime = 0;
-        targetSound.volume = volume;
-        targetSound.play();
+    playSound(soundName, volume, isSoundOn) {
+        if (isSoundOn) {
+            let targetSound = this.soundMap.get(soundName);
+            targetSound.currentTime = 0;
+            targetSound.volume = volume;
+            targetSound.play();
+        }
     }
 
     stopAllSounds() {

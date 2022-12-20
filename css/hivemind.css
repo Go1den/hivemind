@@ -16,6 +16,10 @@ caption {
     color: #fdb002;
 }
 
+.gameButton {
+    width: 140px;
+}
+
 #toast {
     opacity: 1;
     transition: opacity 2s;
