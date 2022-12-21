@@ -20,7 +20,6 @@ class Hivemind {
     clearRate = 0;
     rank;
     currentRank = 'Beeswax';
-    isTodaysPuzzle;
     puzzleID;
     isSoundOn = true;
 
@@ -32,25 +31,35 @@ class Hivemind {
     }
 
     todaysGame() {
+        this.seedRandomForToday();
+        this.newGame();
+    }
+
+    seedRandomForToday() {
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
         today = mm + dd + yyyy;
         Math.seedrandom(today);
-        this.isTodaysPuzzle = true;
-        this.newGame();
+    }
+
+    isCurrentPuzzleSameAsTodaysPuzzle(puzzleID) {
+        this.seedRandomForToday();
+        let tempSeedPuzzle = this.dictionary.getRandomPuzzle().split(',');
+        let tempCenterLetterIndex = Math.floor(Math.random() * tempSeedPuzzle[1].length);
+        let todaysPuzzleID = Number(tempSeedPuzzle[2]);
+        todaysPuzzleID += (10000 * (tempCenterLetterIndex + 1));
+        return todaysPuzzleID == puzzleID;
     }
 
     randomGame() {
         Math.seedrandom();
-        this.isTodaysPuzzle = false;
         this.newGame();
     }
 
     specificGame(puzzleID) {
         Math.seedrandom();
-        this.isTodaysPuzzle = false;
         this.newGame(puzzleID);
     }
 
@@ -100,6 +109,7 @@ class Hivemind {
         this.pageManager.turnOnGameElements();
         this.pageManager.hideDefinition();
         this.pageManager.hideMissedWordsTable();
+        this.pageManager.hideLinkedPuzzle();
         this.updateURL();
     }
 
@@ -168,7 +178,7 @@ class Hivemind {
         let hashtags, text;
         if (isScoreTweet) {
             text = 'I found ' + this.foundWords.length + ' words and scored ' + this.score + ' points to achieve the rank of ' + this.currentRank;
-            if (this.isTodaysPuzzle) {
+            if (this.isCurrentPuzzleSameAsTodaysPuzzle(this.puzzleID)) {
                 text += ' in today\'s #HiveMind, a word game by @GoldenSRL. Can you beat my score?';
             } else {
                 text += ' in #HiveMind, a word game by @GoldenSRL. Can you beat my score?';
@@ -388,5 +398,13 @@ class Hivemind {
     toggleSound() {
         this.isSoundOn = !this.isSoundOn;
         this.pageManager.updateSoundButton(this.isSoundOn);
+    }
+
+    showLinkedPuzzle() {
+        this.pageManager.showLinkedPuzzle();
+    }
+
+    hideLinkedPuzzle() {
+        this.pageManager.hideLinkedPuzzle();
     }
 }

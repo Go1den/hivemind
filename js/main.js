@@ -1,4 +1,14 @@
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+let puzzle = urlParams.get('puzzle');
+
 let hivemind = new Hivemind();
+
+if (puzzle !== undefined && puzzle !== null) {
+    hivemind.showLinkedPuzzle();
+} else {
+    hivemind.hideLinkedPuzzle();
+}
 
 function tweet(e, isScoreTweet) {
     hivemind.tweet(isScoreTweet);
@@ -21,14 +31,12 @@ function newGame(e) {
 }
 
 function linkedGame(e) {
-    let queryString = window.location.search;
-    let urlParams = new URLSearchParams(queryString);
-    let puzzle = urlParams.get('puzzle');
     if (puzzle !== undefined && puzzle !== null) {
         hivemind.specificGame(Number(puzzle));
     } else {
         alert("The puzzle in your URL is not valid. Try playing today's puzzle or a random puzzle instead!");
     }
+    e.blur();
 }
 
 function backToHomeScreen(e) {

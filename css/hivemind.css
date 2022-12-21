@@ -147,3 +147,7 @@ button {
     background-image: url(../images/tiles/silver.png);
     line-height: 100px;
 }
+
+.challenge {
+    width: 100%;
+}

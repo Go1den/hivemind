@@ -181,11 +181,20 @@
                     <td><button class="gameButton" onclick="giveUp(this)">Give Up</button></td>
                 </tr>
             </table>
+        </div>
+        <div class="w3-container" id="linkedPuzzleRow">
+            <table class="bordered">
+                <caption>Challenge Detected</caption>
+                <tr>
+                    <td class="challenge center">It looks like you were linked to a specific puzzle.<br>Click here to play that one:<br><button onclick="linkedGame(this)">Linked<br>Puzzle</button</td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container">
             <table class="onAtStartOnly newGame">
                 <tr>
                     <td class="onAtStartOnly center"><button onclick="todaysGame(this)">Today's<br>Puzzle</button></td>
                     <td class="onAtStartOnly center"><button onclick="newGame(this)">Random<br>Puzzle</button></td>
-                    <td class="onAtStartOnly center"><button onclick="linkedGame(this)">Linked<br>Puzzle</button></td>
                     <td class="offAtStart center"><button onclick="tweet(this, true)">Tweet<br>My Score</button></td>
                     <td class="offAtStart center"><button onclick="backToHomeScreen(this)">Back to<br>Main Page</button></td>
                 </tr>

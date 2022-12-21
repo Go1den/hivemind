@@ -204,4 +204,12 @@ class PageManager {
         let text = isSoundOn ? 'Mute' : 'Unmute';
         document.getElementById("soundButton").innerHTML = text;
     }
+
+    showLinkedPuzzle() {
+        document.getElementById("linkedPuzzleRow").style.display = 'table';
+    }
+
+    hideLinkedPuzzle() {
+        document.getElementById("linkedPuzzleRow").style.display = 'none';
+    }
 }
