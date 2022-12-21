@@ -69,11 +69,11 @@ function giveUp(e) {
     e.blur();
 }
 
-function onAnswerBoardClick(e, index) {
+function onAnswerBoardClick(e, index, isFoundWord) {
     if (hivemind.getIsGameGoing()) {
         hivemind.typePreviouslyFoundWord(index);
     } else {
-        hivemind.updateDefinition(index);
+        hivemind.updateDefinition(index, isFoundWord);
     }
     e.blur();
 }

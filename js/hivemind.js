@@ -11,6 +11,7 @@ class Hivemind {
     originalPositionArray;
     score;
     foundWords = new Array();
+    missedWords = new Array();
     soundboard;
     isGameGoing = false;
     pageManager;
@@ -70,6 +71,7 @@ class Hivemind {
         this.pageManager.setRank(this.currentRank);
         this.pageManager.setScore(this.score);
         this.foundWords = new Array();
+        this.missedWords = new Array();
         let centerLetterIndex;
         if (puzzleID !== undefined && puzzleID !== null) {
             this.seedPuzzle = this.dictionary.getPuzzleByID(puzzleID).split(',');
@@ -117,9 +119,9 @@ class Hivemind {
     giveUp() {
         for (let i=0; i<this.answerArray.length; i++) {
             let word = this.answerArray[i];
-            if (this.foundWords.indexOf(word) < 0) {
+            if (this.foundWords.indexOf(word) < 0 && this.missedWords.indexOf(word) < 0) {
+                this.missedWords.push(word);
                 this.revealMissedWord(word);
-                this.foundWords.push(word);
             }
         }
         this.#endRound();
@@ -289,7 +291,7 @@ class Hivemind {
     }
 
     revealMissedWord(word) {
-        this.pageManager.revealMissedWord(word, this.foundWords.length + 1);
+        this.pageManager.revealMissedWord(word, this.missedWords.length);
     }
 
     revealWord(index) {
@@ -368,9 +370,16 @@ class Hivemind {
         this.pageManager.hideDefinition();
     }
 
-    async updateDefinition(index) {
+    async updateDefinition(index, isFoundWord) {
         if (index <= this.answerArray.length) {
-            let word = this.foundWords[index-1];
+            let word;
+            if (isFoundWord && index <= this.foundWords.length) {
+                word = this.foundWords[index-1];
+            } else if (!isFoundWord && index <= this.missedWords.length) {
+                word = this.missedWords[index-1];
+            } else {
+                return;
+            }
             let result = await this.dictionary.lookup(word);
             this.pageManager.updateDefinition(result);
         }

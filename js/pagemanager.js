@@ -68,13 +68,13 @@ class PageManager {
 
     revealWord(word, index) {
         let answerTextDiv = document.getElementById("answerText");
-        answerTextDiv.innerHTML += '<span id="' + word + '" onclick="onAnswerBoardClick(this, ' + index + ')"><strong>&nbsp;' + word + '&nbsp;</strong></span>';
+        answerTextDiv.innerHTML += '<span id="' + word + '" onclick="onAnswerBoardClick(this, ' + index + ', true)"><strong>&nbsp;' + word + '&nbsp;</strong></span>';
         answerTextDiv.scrollLeft = answerTextDiv.scrollWidth;
     }
 
     revealMissedWord(word, index) {
         let answerTextDiv = document.getElementById("revealedAnswerText");
-        answerTextDiv.innerHTML += '<span id="' + word + '" onclick="onAnswerBoardClick(this, ' + index + ')"><strong>&nbsp;' + word + '&nbsp;</strong></span>';
+        answerTextDiv.innerHTML += '<span id="' + word + '" onclick="onAnswerBoardClick(this, ' + index + ', false)"><strong>&nbsp;' + word + '&nbsp;</strong></span>';
         answerTextDiv.scrollLeft = answerTextDiv.scrollWidth;
     }
 
