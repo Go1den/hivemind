@@ -104,7 +104,8 @@ class Hivemind {
     setTotalPossibleRoundPoints() {
         let total = 0;
         for (let i=0; i<this.answerArray.length; i++) {
-            total += this.getWordScore(this.answerArray[i]);
+            let word = this.answerArray[i];
+            total += this.getWordScore(word, this.isPangram(word));
         }
         this.totalRoundPoints = total;
     }
