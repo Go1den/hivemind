@@ -165,7 +165,7 @@ class Hivemind {
     tweet(isScoreTweet) {
         let hashtags, text;
         if (isScoreTweet) {
-            text = 'I scored ' + this.score + ' to achieve the rank of ' + this.currentRank;
+            text = 'I found ' + this.foundWords.length + ' words and scored ' + this.score + ' points to achieve the rank of ' + this.currentRank;
             if (this.isTodaysPuzzle) {
                 text += ' in today\'s #HiveMind, a word game by @GoldenSRL. Can you beat my score?';
             } else {
