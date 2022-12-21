@@ -118,7 +118,7 @@
                 </tr>
             </table>
         </div>
-        <div class="w3-container offAtStart">
+        <div class="w3-container offAtStart" id="toastRow">
             <table>
                 <tr>
                     <td style="width: 100%;" id="toast" class="text fade"></td>
@@ -183,27 +183,11 @@
             </table>
             <table class="onAtStartOnly newGame">
                 <tr>
-                    <td class="center"><button onclick="todaysGame(this)">Play Today's Puzzle</button></td>
-                    <td class="center"><button onclick="newGame(this)">Play Random Puzzle</button></td>
-                    <td class="center"><button onclick="linkedGame(this)">Play Linked Puzzle</button></td>
-                    <td class="offAtStart center"><button onclick="backToHomeScreen(this)">Back to Main Page</button></td>
-                </tr>
-            </table>
-        </div>
-        <div class="w3-container">
-            <table class="twitter">
-                <tr>
-                    <td id="tweet"><a 
-                        href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
-                        class="twitter-share-button" 
-                        data-size="large" 
-                        data-text="I'm playing #HiveMind, a free word game by @GoldenSRL. Check it out!" 
-                        data-url="https://go1den.github.io/hive-mind" 
-                        data-hashtags="hivemind" 
-                        data-dnt="true" 
-                        data-show-count="false">Tweet</a>
-                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                    </td>
+                    <td class="onAtStartOnly center"><button onclick="todaysGame(this)">Today's<br>Puzzle</button></td>
+                    <td class="onAtStartOnly center"><button onclick="newGame(this)">Random<br>Puzzle</button></td>
+                    <td class="onAtStartOnly center"><button onclick="linkedGame(this)">Linked<br>Puzzle</button></td>
+                    <td class="offAtStart center"><button onclick="tweet(this)">Tweet<br>My Score</button></td>
+                    <td class="offAtStart center"><button onclick="backToHomeScreen(this)">Back to<br>Main Page</button></td>
                 </tr>
             </table>
         </div>

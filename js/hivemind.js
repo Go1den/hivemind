@@ -159,7 +159,24 @@ class Hivemind {
         let isRankUp = this.setPointThreshold();
         this.setRankThreshold(isRankUp);
         this.pageManager.setToast(this.getToastTextForWord(thisScore, isPangram));
-        this.pageManager.setTweetText(this.currentRank, this.score, document.URL, this.isTodaysPuzzle, this.puzzleID);
+    }
+
+    tweet() {
+        let text = 'I scored ' + this.score + ' to achieve the rank of ' + this.currentRank;
+        if (this.isTodaysPuzzle) {
+            text += ' in today\'s #HiveMind, a word game by @GoldenSRL! Can you beat my score?';
+        } else {
+            text += ' in #HiveMind, a word game by @GoldenSRL! Can you beat my score?';
+        }
+        let hashtags = "hivemind" + this.puzzleID;
+
+        let myUrlWithParameters = new URL ("https://twitter.com/intent/tweet");
+        myUrlWithParameters.searchParams.append("hashtags", hashtags);
+        myUrlWithParameters.searchParams.append("ref_src", "twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E");
+        myUrlWithParameters.searchParams.append("text", text);
+        myUrlWithParameters.searchParams.append("url", document.URL);
+
+        window.open(myUrlWithParameters, "");
     }
 
     getToastTextForWord(points, isPangram) {

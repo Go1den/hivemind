@@ -1,5 +1,10 @@
 let hivemind = new Hivemind();
 
+function tweet(e) {
+    hivemind.tweet();
+    e.blur();
+}
+
 function toggleSound(e) {
     hivemind.toggleSound();
     e.blur();

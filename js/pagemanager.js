@@ -37,7 +37,7 @@ class PageManager {
     }
     
     displayInBetweenGamesElements() {
-        this.setDisplayOfElements('.newGame', '');
+        this.setDisplayOfElements('.newGame', 'table');
     }
 
     hideInBetweenGamesElements() {
@@ -129,6 +129,7 @@ class PageManager {
     hideGuessAndTiles() {
         document.getElementById("usedLetterRow").style.display = 'none';
         document.getElementById("unusedLetterRow").style.display = 'none';
+        document.getElementById("toastRow").style.display = 'none';
     }
 
     hideMissedWordsTable() {
@@ -167,24 +168,6 @@ class PageManager {
 
     setRank(rank) {
         document.getElementById("rank").innerHTML = '<strong>' + rank + '</strong>';
-    }
-
-    setTweetText(rank, score, puzzleLink, isTodaysPuzzle, puzzleID) {
-        let text = 'I scored ' + score + ' to achieve the rank of ' + rank;
-        if (isTodaysPuzzle) {
-            text += ' in today\'s #HiveMind, a word game by @GoldenSRL! Can you beat my score? Click "Play Today\'s Puzzle" to find out!';
-        } else {
-            text += ' in #HiveMind, a word game by @GoldenSRL! Can you beat my score? Click "Play Linked Puzzle" to find out!';
-        }
-        let hashtags = "hivemind" + puzzleID;
-
-        let myUrlWithParameters = new URL ("https://twitter.com/intent/tweet");
-        myUrlWithParameters.searchParams.append("hashtags", hashtags);
-        myUrlWithParameters.searchParams.append("ref_src", "twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E");
-        myUrlWithParameters.searchParams.append("text", text);
-        myUrlWithParameters.searchParams.append("url", puzzleLink);
-
-        document.getElementById("tweet").innerHTML = '<a href="' + myUrlWithParameters + '">Click me to Tweet</a>';
     }
 
     setScore(score) {
