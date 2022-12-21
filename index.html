@@ -186,8 +186,19 @@
                     <td class="onAtStartOnly center"><button onclick="todaysGame(this)">Today's<br>Puzzle</button></td>
                     <td class="onAtStartOnly center"><button onclick="newGame(this)">Random<br>Puzzle</button></td>
                     <td class="onAtStartOnly center"><button onclick="linkedGame(this)">Linked<br>Puzzle</button></td>
-                    <td class="offAtStart center"><button onclick="tweet(this)">Tweet<br>My Score</button></td>
+                    <td class="offAtStart center"><button onclick="tweet(this, true)">Tweet<br>My Score</button></td>
                     <td class="offAtStart center"><button onclick="backToHomeScreen(this)">Back to<br>Main Page</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container">
+            <table class="onAtStartOnly">
+                <tr>
+                    <td style="width: 100%">
+                        <a href="https://discord.gg/GsGfYS52Ty"><image src="images/social/discord.png"></a>
+                        <image src="images/social/twitter.png" onclick="tweet(this, false)" style="cursor: pointer">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://go1den.github.io/hive-mind"><image src="images/social/facebook.png"></a>
+                    </td>
                 </tr>
             </table>
         </div>

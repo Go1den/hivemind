@@ -1,7 +1,7 @@
 let hivemind = new Hivemind();
 
-function tweet(e) {
-    hivemind.tweet();
+function tweet(e, isScoreTweet) {
+    hivemind.tweet(isScoreTweet);
     e.blur();
 }
 
