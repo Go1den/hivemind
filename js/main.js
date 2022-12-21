@@ -32,7 +32,7 @@ function linkedGame(e) {
 }
 
 function backToHomeScreen(e) {
-    location.href = "https://go1den.github.io/hive-mind";
+    location.href = "https://go1den.github.io/hivemind";
 }
 
 function scramble(e) {
