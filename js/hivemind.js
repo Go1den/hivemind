@@ -289,7 +289,7 @@ class Hivemind {
     }
 
     addLetter(field) {
-        let letterToBeAdded = document.getElementById(field).innerHTML[23];
+        let letterToBeAdded = document.getElementById(field).innerHTML[30];
         if (this.usedLetterIndex < 18 && letterToBeAdded !== '' && letterToBeAdded !== undefined) {
             let className = letterToBeAdded == this.seedCenterLetter.toUpperCase() ? 'textY' : 'textW';
             this.pageManager.addLetterToGuess(letterToBeAdded, className)

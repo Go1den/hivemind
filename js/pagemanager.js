@@ -105,9 +105,9 @@ class PageManager {
         for (let i=0; i<scrambledLetters.length; i++) {
             let currentLetter = scrambledLetters[i];
             if (i == 3) {
-                document.getElementById("unusedLetterRow" + (i+1).toString()).innerHTML = '<image src=\"images/tiles/' + currentLetter +'gold.png\"/>';
+                document.getElementById("unusedLetterRow" + (i+1).toString()).innerHTML = '<div class="goldImage letter">' + currentLetter + '</div>';
             } else {
-                document.getElementById("unusedLetterRow" + (i+1).toString()).innerHTML = '<image src=\"images/tiles/' + currentLetter +'silver.png\"/>';
+                document.getElementById("unusedLetterRow" + (i+1).toString()).innerHTML = '<div class="silvImage letter">' + currentLetter + '</div>';
             }
         }
     }
