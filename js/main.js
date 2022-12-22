@@ -1,10 +1,12 @@
 let queryString = window.location.search;
 let urlParams = new URLSearchParams(queryString);
 let puzzle = urlParams.get('puzzle');
+let daily = urlParams.get('daily');
 
 let hivemind = new Hivemind();
+hivemind.calendar.getDailyPuzzleNumber();
 
-if (puzzle !== undefined && puzzle !== null) {
+if ((puzzle !== undefined && puzzle !== null) || (daily !== undefined && daily !== null)) {
     hivemind.showLinkedPuzzle();
 } else {
     hivemind.hideLinkedPuzzle();
@@ -31,8 +33,15 @@ function newGame(e) {
 }
 
 function linkedGame(e) {
-    if (puzzle !== undefined && puzzle !== null) {
-        hivemind.specificGame(Number(puzzle));
+    if (daily !== undefined && daily !== null) {
+        let param = Number(daily);
+        if (param <= hivemind.calendar.getDailyPuzzleNumber()) {
+            hivemind.specificGame(Number(daily), true);
+        } else {
+            alert("The puzzle in your URL is not valid. Try playing today's puzzle or a random puzzle instead!");
+        }
+    } else if (puzzle !== undefined && puzzle !== null) {
+        hivemind.specificGame(Number(puzzle), false);
     } else {
         alert("The puzzle in your URL is not valid. Try playing today's puzzle or a random puzzle instead!");
     }

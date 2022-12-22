@@ -151,3 +151,8 @@ button {
 .challenge {
     width: 100%;
 }
+
+.puzzleNumberRow {
+    height: 40px;
+    margin: 0 0 0 0;
+}

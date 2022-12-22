@@ -22,52 +22,57 @@ class Hivemind {
     currentRank = 'Beeswax';
     puzzleID;
     isSoundOn = true;
+    calendar;
+    dayNumber = 0;
+    isDaily;
 
     constructor() {
         this.dictionary = new Dictionary();
         this.soundboard = new Soundboard();
         this.pageManager = new PageManager();
         this.rank = new Rank();
+        this.calendar = new Calendar();
     }
 
     todaysGame() {
+        this.isDaily = true;
+        this.dayNumber = this.calendar.getDailyPuzzleNumber();
         this.seedRandomForToday();
         this.newGame();
     }
 
     seedRandomForToday() {
-        let today = new Date();
-        let dd = String(today.getDate()).padStart(2, '0');
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let yyyy = today.getFullYear();
-        today = mm + dd + yyyy;
-        Math.seedrandom(today);
-    }
-
-    isCurrentPuzzleSameAsTodaysPuzzle(puzzleID) {
-        this.seedRandomForToday();
-        let tempSeedPuzzle = this.dictionary.getRandomPuzzle().split(',');
-        let tempCenterLetterIndex = Math.floor(Math.random() * tempSeedPuzzle[1].length);
-        let todaysPuzzleID = Number(tempSeedPuzzle[2]);
-        todaysPuzzleID += (10000 * (tempCenterLetterIndex + 1));
-        return todaysPuzzleID == puzzleID;
+        Math.seedrandom(this.calendar.getTodaysDateString());
     }
 
     randomGame() {
+        this.isDaily = false;
         Math.seedrandom();
         this.newGame();
     }
 
-    specificGame(puzzleID) {
-        Math.seedrandom();
-        this.newGame(puzzleID);
+    specificGame(param, isDaily) {
+        this.isDaily = isDaily;
+        if (isDaily) { //param is the daily puzzle #
+            let dayAsString = this.calendar.getPastDailyPuzzleString(param);
+            this.dayNumber = param;
+            Math.seedrandom(dayAsString);
+            this.newGame();
+        } else {
+            this.newGame(param); //param is puzzleID
+        }
     }
 
     updateURL() {
-        const currentURL = location.protocol + '//' + location.host + location.pathname;
-        const nextURL = currentURL + '?puzzle=' + this.puzzleID;
-        const nextTitle = 'Hive Mind by Go1den';
-        const nextState = { additionalInformation: 'New puzzle data' };
+        let currentURL = location.protocol + '//' + location.host + location.pathname;
+        let nextURL;
+        if (this.isDaily) {
+            nextURL = currentURL + '?daily=' + this.dayNumber;
+        } else {
+            nextURL = currentURL + '?puzzle=' + this.puzzleID;
+        }
+        let nextTitle = 'Hive Mind by Go1den';
+        let nextState = { additionalInformation: 'New puzzle data' };
         window.history.pushState(nextState, nextTitle, nextURL);
     }
 
@@ -104,6 +109,9 @@ class Hivemind {
         this.setThreshold();
         this.setPointThreshold();
         this.setRankThreshold(false);
+        if (this.isDaily) {
+            this.pageManager.showPuzzleNumber(this.dayNumber);
+        }
         this.pageManager.turnOffWelcomeScreenElements();
         this.pageManager.addBorderedClass();
         this.pageManager.turnOnGameElements();
@@ -178,12 +186,14 @@ class Hivemind {
         let hashtags, text;
         if (isScoreTweet) {
             text = 'I found ' + this.foundWords.length + ' words and scored ' + this.score + ' points to achieve the rank of ' + this.currentRank;
-            if (this.isCurrentPuzzleSameAsTodaysPuzzle(this.puzzleID)) {
+            if (this.calendar.isCurrentPuzzleSameAsTodaysPuzzle(this.dayNumber)) {
                 text += ' in today\'s #HiveMind, a word game by @GoldenSRL. Can you beat my score?';
             } else {
                 text += ' in #HiveMind, a word game by @GoldenSRL. Can you beat my score?';
             }
-            hashtags = "hivemind" + this.puzzleID;
+            if (this.isDaily) {
+                hashtags = "HiveMind" + this.dayNumber;
+            }
         } else {
             text = 'I\'m playing #HiveMind, a word game by @GoldenSRL. Check it out!';
         }

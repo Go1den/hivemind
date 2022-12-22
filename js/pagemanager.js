@@ -212,4 +212,8 @@ class PageManager {
     hideLinkedPuzzle() {
         document.getElementById("linkedPuzzleRow").style.display = 'none';
     }
+
+    showPuzzleNumber(dayNumber) {
+        document.getElementById("puzzleNumber").innerHTML = '<p class="center">Hivemind #' + dayNumber + '</p>';
+    }
 }
