@@ -1618,7 +1618,6 @@ sWords = [
 "sharpness",
 "sharps",
 "sharpy",
-"shat",
 "shatter",
 "shattered",
 "shatters",
