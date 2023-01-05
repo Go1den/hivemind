@@ -144,7 +144,7 @@ class PageManager {
         document.getElementById("rank").style.backgroundPosition = 100 - percentage + '%';
     }
 
-    animateRankUp(soundboard, currentRank, isSoundOn) {
+    animateRankUp(soundboard, currentRank, isSoundOn, pointsToNextRank) {
         this.setRankThreshold(100);
         setTimeout(() => {
             document.getElementById("rank").classList.remove("progressBar");
@@ -152,26 +152,27 @@ class PageManager {
             this.setRankThreshold(0);
             this.setRank(currentRank);
             this.setToast("Rank up!");
+            this.setToNextRank(pointsToNextRank);
             document.getElementById("rank").classList.add("progressBar");
         }, 1000);
     }
 
-    setThreshold(percentage) {
-        document.getElementById("threshold").innerHTML = '<strong>' + percentage + '%</strong>';
+    setThreshold(percentage, wordsFound, totalWords) {
+        document.getElementById("threshold").innerHTML = '<strong>' + wordsFound + ' of ' + totalWords + '</strong>';
         document.getElementById("threshold").style.backgroundPosition = 100 - percentage + '%';
     }
 
-    setPointThreshold(percentage) {
-        document.getElementById("pointThreshold").innerHTML = '<strong>' + percentage + '%</strong>';
-        document.getElementById("pointThreshold").style.backgroundPosition = 100 - percentage + '%';
+    setToNextRank(points) {
+        document.getElementById("toNextRank").innerHTML = '<strong>' + points + '</strong>';
     }
 
     setRank(rank) {
         document.getElementById("rank").innerHTML = '<strong>' + rank + '</strong>';
     }
 
-    setScore(score) {
-        document.getElementById("score").innerHTML = '<strong>' + score + '</strong>';
+    setScore(score, totalPoints, percentage) {
+        document.getElementById("score").innerHTML = '<strong>' + score + ' of ' + totalPoints + '</strong>';
+        document.getElementById("score").style.backgroundPosition = 100 - percentage + '%';
     }
 
     setToast(text) {

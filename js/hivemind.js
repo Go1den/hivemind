@@ -7,6 +7,7 @@ class Hivemind {
     upperCaseSeedWord;
     letters;
     answerArray;
+    answerCount = 0;
     usedLetterIndex = 1;
     originalPositionArray;
     score;
@@ -83,7 +84,6 @@ class Hivemind {
         this.score = 0;
         this.currentRank = 'Beeswax';
         this.pageManager.setRank(this.currentRank);
-        this.pageManager.setScore(this.score);
         this.foundWords = new Array();
         this.missedWords = new Array();
         let centerLetterIndex;
@@ -101,11 +101,13 @@ class Hivemind {
         this.upperCaseSeedWord = this.seedWord.toUpperCase();
         this.letters = this.seedWord.split('');
         this.answerArray = this.dictionary.getValidWordArray(this.seedWord, this.seedCenterLetter);
+        this.answerCount = this.answerArray.length;
         this.originalPositionArray = [];
         this.letters = this.upperCaseSeedWord.split('');
         this.pageManager.clearAllTables();
         this.scramble(false);
         this.setTotalPossibleRoundPoints();
+        this.pageManager.setScore(this.score, this.totalRoundPoints, 0);
         this.setThreshold();
         this.setPointThreshold();
         this.setRankThreshold(false);
@@ -123,7 +125,7 @@ class Hivemind {
 
     setTotalPossibleRoundPoints() {
         let total = 0;
-        for (let i=0; i<this.answerArray.length; i++) {
+        for (let i=0; i<this.answerCount; i++) {
             let word = this.answerArray[i];
             total += this.getWordScore(word, this.isPangram(word));
         }
@@ -135,7 +137,7 @@ class Hivemind {
     }
 
     giveUp() {
-        for (let i=0; i<this.answerArray.length; i++) {
+        for (let i=0; i<this.answerCount; i++) {
             let word = this.answerArray[i];
             if (this.foundWords.indexOf(word) < 0 && this.missedWords.indexOf(word) < 0) {
                 this.missedWords.push(word);
@@ -175,7 +177,8 @@ class Hivemind {
         let isPangram = this.isPangram(word);
         let thisScore = this.getWordScore(word, isPangram);
         this.score += thisScore;
-        this.pageManager.setScore(this.score);
+        let percentage = Math.round(1000 * (this.score / this.totalRoundPoints)) / 10;
+        this.pageManager.setScore(this.score, this.totalRoundPoints, percentage);
         this.setThreshold();
         let isRankUp = this.setPointThreshold();
         this.setRankThreshold(isRankUp);
@@ -223,13 +226,16 @@ class Hivemind {
 
     setPointThreshold() {
         let isRankUp = false;
+        let pointsToNextRank;
         if (this.isGameGoing) {
             let percentage = Math.round(1000 * (this.score / this.totalRoundPoints)) / 10;
-            this.pageManager.setPointThreshold(percentage);
             let tempRank = this.rank.getRank(percentage);
+            pointsToNextRank = this.rank.getPointsToNextRank(this.currentRank, this.totalRoundPoints, this.score);
+            this.pageManager.setToNextRank(pointsToNextRank);
             if (this.currentRank !== tempRank) {
                 this.currentRank = tempRank;
-                this.pageManager.animateRankUp(this.soundboard, this.currentRank, this.isSoundOn);
+                pointsToNextRank = this.rank.getPointsToNextRank(this.currentRank, this.totalRoundPoints, this.score);
+                this.pageManager.animateRankUp(this.soundboard, this.currentRank, this.isSoundOn, pointsToNextRank);
                 isRankUp = true;
             }
         }
@@ -238,8 +244,9 @@ class Hivemind {
 
     setThreshold() {
         if (this.isGameGoing) {
-            let percentage = Math.round(1000 * (this.foundWords.length / this.answerArray.length)) / 10;
-            this.pageManager.setThreshold(percentage);
+            let foundWordCount = this.foundWords.length;
+            let percentage = Math.round(1000 * (foundWordCount / this.answerCount)) / 10;
+            this.pageManager.setThreshold(percentage, foundWordCount, this.answerCount);
         }
     }
 
@@ -264,7 +271,7 @@ class Hivemind {
                 this.revealWord(answerArrayIndex);
                 this.foundWords.push(word);
                 this.scoreWord(word);
-                if (this.foundWords.length === this.answerArray.length) {
+                if (this.foundWords.length === this.answerCount) {
                     this.#endRound();
                 } else {
                     this.soundboard.playSound("correctSound", 0.5, this.isSoundOn);
@@ -391,7 +398,7 @@ class Hivemind {
     }
 
     async updateDefinition(index, isFoundWord) {
-        if (index <= this.answerArray.length) {
+        if (index <= this.answerCount) {
             let word;
             if (isFoundWord && index <= this.foundWords.length) {
                 word = this.foundWords[index-1];
