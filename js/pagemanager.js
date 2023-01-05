@@ -141,19 +141,19 @@ class PageManager {
     }
 
     setRankThreshold(percentage) {
-        document.getElementById("rank").style.backgroundPosition = 100 - percentage + '%';
+        document.getElementById("toNextRank").style.backgroundPosition = 100 - percentage + '%';
     }
 
     animateRankUp(soundboard, currentRank, isSoundOn, pointsToNextRank) {
         this.setRankThreshold(100);
         setTimeout(() => {
-            document.getElementById("rank").classList.remove("progressBar");
+            document.getElementById("toNextRank").classList.remove("progressBar");
             soundboard.playSound("rankUpSound", 0.25, isSoundOn);
             this.setRankThreshold(0);
             this.setRank(currentRank);
             this.setToast("Rank up!");
             this.setToNextRank(pointsToNextRank);
-            document.getElementById("rank").classList.add("progressBar");
+            document.getElementById("toNextRank").classList.add("progressBar");
         }, 1000);
     }
 
