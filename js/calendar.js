@@ -17,7 +17,7 @@ class Calendar {
     }
 
     getFirstPuzzleDate() {
-        let date = new Date(2022, 11, 21);
+        let date = new Date(2023, 12, 17);
         return this.setToMidnight(date);
     }
 
