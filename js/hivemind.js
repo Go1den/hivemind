@@ -185,33 +185,6 @@ class Hivemind {
         this.pageManager.setToast(this.getToastTextForWord(thisScore, isPangram));
     }
 
-    tweet(isScoreTweet) {
-        let hashtags, text;
-        if (isScoreTweet) {
-            text = 'I found ' + this.foundWords.length + ' words and scored ' + this.score + ' points to achieve the rank of ' + this.currentRank;
-            if (this.calendar.isCurrentPuzzleSameAsTodaysPuzzle(this.dayNumber)) {
-                text += ' in today\'s #HiveMind, a word game by @GoldenSRL. Can you beat my score?';
-            } else {
-                text += ' in #HiveMind, a word game by @GoldenSRL. Can you beat my score?';
-            }
-            if (this.isDaily) {
-                hashtags = "HiveMind" + this.dayNumber;
-            }
-        } else {
-            text = 'I\'m playing #HiveMind, a word game by @GoldenSRL. Check it out!';
-        }
-
-        let myUrlWithParameters = new URL ("https://twitter.com/intent/tweet");
-        if (hashtags !== undefined) {
-            myUrlWithParameters.searchParams.append("hashtags", hashtags);
-        }
-        myUrlWithParameters.searchParams.append("ref_src", "twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Eshare%7Ctwgr%5E");
-        myUrlWithParameters.searchParams.append("text", text);
-        myUrlWithParameters.searchParams.append("url", document.URL);
-
-        window.open(myUrlWithParameters, "");
-    }
-
     getToastTextForWord(points, isPangram) {
         if (isPangram) {
             return 'Pangram! +' + points;
