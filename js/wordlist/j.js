@@ -12,8 +12,6 @@ jWords = [
 "jack",
 "jackal",
 "jackals",
-"jackass",
-"jackasses",
 "jackboot",
 "jackdaw",
 "jackdaws",

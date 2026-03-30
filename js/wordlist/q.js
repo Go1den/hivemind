@@ -78,7 +78,6 @@ qWords = [
 "queering",
 "queerly",
 "queerness",
-"queers",
 "quell",
 "quelled",
 "quelling",

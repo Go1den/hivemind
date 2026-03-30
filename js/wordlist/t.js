@@ -1135,7 +1135,6 @@ tWords = [
 "titling",
 "titmice",
 "titmouse",
-"tits",
 "titter",
 "tittered",
 "tittering",
