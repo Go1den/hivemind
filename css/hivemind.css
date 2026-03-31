@@ -1,6 +1,11 @@
 body {
     background-color: #1b1f20;
     color: white;
+
+    /* Prevent element selection */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 caption {
